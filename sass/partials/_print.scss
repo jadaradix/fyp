@@ -1,0 +1,30 @@
+@page {
+  size: auto;
+  margin: 18mm;
+}
+
+@media print {
+
+  body {
+    padding: 0;
+    background-color: white !important;
+    background-image: none;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  .no-print {
+    display: none;
+  }
+
+  .no-break {
+    page-break-inside: avoid;
+  }
+
+  .break-before {
+      page-break-before: always;
+  }
+
+}
