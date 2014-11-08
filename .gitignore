@@ -3,3 +3,4 @@ sass/cache/
 build/
 private/
 .DS_Store
+Thumbs.db

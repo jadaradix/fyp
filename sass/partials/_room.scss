@@ -1,89 +1,67 @@
-$size: 600px;
-$translate: 300px;
-$perspective: 400px;
-
-.wall {
-  position: absolute;
-  width: $size;
-  height: $size;
-  .piece {
-    float: left;
-    box-sizing: border-box;
-    width: 50%;
-    margin-top: 15%;
-    padding: $spacing;
-    img {
-      display: block;
-      width: 100%;
-      box-shadow: 0 5px 5px rgb(64, 64, 64);
-      border: 4px solid #967117;
-    }
-  }
-}
-
-.wall.left, .wall.right, .wall.back {
-  background-image: url("http://4.bp.blogspot.com/-QxOBUinV_7o/UrDIPyySb3I/AAAAAAAAM5w/-rf_kptaxcQ/s1600/Seamless_White_Brick_Texture.jpg");
-  background-size: 55% 55%;
-}
-
-.wall.left {
-  background-color: green;
-  background-color: rgb(235, 235, 235);
-}
-.wall.right {
-  background-color: yellow;
-  background-color: rgb(235, 235, 235);
-}
-.wall.top {
-  background-color: blue;
-  background-color: rgb(215, 215, 215);
-  background-image: url("http://crystalvore.com/wp-content/uploads/2013/04/Seamless-Stucco-White-Plaster-Wall-500x500.jpg");
-  background-size: 15% 15%;
-}
-.wall.bottom {
-  background-color: pink;
-  background-color: rgb(215, 215, 215);
-  background-image: url("http://fc02.deviantart.net/fs71/i/2010/183/5/4/Wood_Floor_Texture_by_AGF81.jpg");
-  background-size: 100% 100%;
-}
-.wall.back {
-  background-color: red;
-  background-color: rgb(195, 195, 195);
-}
-
 .room {
+  display: none;
   position: relative;
-  width: $size;
-  height: $size;
-  perspective: $perspective;
   overflow: hidden;
   background-color: black;
 
-  > .walls {
-
+  .overlay, .walls {
     position: absolute;
     width: 100%;
     height: 100%;
-    transform-style: preserve-3d;
-    transform: translateZ(-$translate);
-    transform-origin: center center;
+  }
 
-    > .wall.left {
-      transform: rotateY(90deg) translateZ(-$translate);
+  .overlay {
+    > div {
+      position: absolute;
+      padding: $spacing;
+      opacity: 0.5;
+      &, a {
+        color: black;
+      }
+      &.top {
+        top: 0;
+      }
+      &.bottom {
+        bottom: 0;
+      }
     }
-    > .wall.right {
-      transform: rotateY(-90deg) translateZ(-$translate);
+  }
+
+  > .walls {
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    .wall {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(195, 195, 195);
+      .piece {
+        float: left;
+        box-sizing: border-box;
+        width: 50%;
+        margin-top: 15%;
+        padding: $spacing;
+        img {
+          display: block;
+          width: 100%;
+          box-shadow: 0 5px 5px rgb(64, 64, 64);
+          border: 4px solid #967117;
+        }
+      }
     }
-    > .wall.top {
-      transform: rotateX(-90deg) translateZ(-$translate);
+
+    .wall.left, .wall.right, .wall.back {
+      background-image: url("../static/wall.jpg");
+      background-size: 55% (55% * (683 / 512));
     }
-    > .wall.back {
-      transform: rotateX(-180deg) translateZ($translate) scaleY(-1);
+    .wall.top {
+      background-image: url("../static/ceiling.jpg");
+      background-size: 15% 15%;
     }
-    > .wall.bottom {
-      transform: rotateX(-90deg) translateZ($translate) scaleY(-1);
+    .wall.bottom {
+      background-image: url("../static/floor.jpg");
+      background-size: 100% 100%;
     }
 
   }
-
 }
