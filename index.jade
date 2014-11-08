@@ -2,21 +2,44 @@ doctype html
 html
   head
     link(rel='stylesheet', href='css/fyp.scss.css')
+    link(rel='stylesheet', href='css/room.scss.css')
     title Final Year Project
     meta(charset='UTF-8')
     meta(name='robots', content='INDEX, FOLLOW')
     meta(name='viewport',content='width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
-  body(ng-app="fypApp")
-    header
+  body
+    header(style="display: none;")
       h1.
         Final Year Project
+      ul
+        li
+          a(href="technology/") Technology
+        li
+          a(href="report/") Report
+        li
+          a(href="http://jada.io/") Jada.io
+        li
+          a(href="http://www.lancaster.ac.uk/") Lancaster University
     main(ng-controller="mainController")
-      p.
-        Hello, World.
-    footer
+      .room#room
+        .walls
+          .wall.left
+            .piece
+              img(src="http://cdn0.lostateminor.com/wp-content/uploads/2013/02/mona-lisa-on-instagram-4.jpg")
+            .piece
+              img(src="http://www.quiterly.com/wp-content/uploads/2012/09/Modernize_Famous_Paintings.jpg")
+          .wall.right
+            .piece
+              img(src="http://www.technocrazed.com/wp-content/uploads/2013/08/Remake-Of-Famous-classical-Paintings-With-Pop-Culture-Icons3.jpg")
+            .piece
+              img(src="http://fc09.deviantart.net/fs71/f/2014/063/c/b/rembrandt__selfie_3192_by_loopydave-d78v3f6.jpg")
+          .wall.top
+          .wall.bottom
+          .wall.back
+    footer(style="display: none;")
       p.
         &copy; James Garner, 2014 &mdash;
     script(src='js/jquery.min.js')
     script(src='js/angular.min.js')
     script(src='js/async.js')
-    script(src='js/fyp.js')
+    script(src='js/room.js')
