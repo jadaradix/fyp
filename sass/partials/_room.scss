@@ -42,13 +42,24 @@
         .piece {
           box-sizing: border-box;
           padding: $spacing;
-          img {
+          > * {
             display: block;
             margin: 0 auto 0 auto;
             width: 100%;
             box-shadow: 0 5px 5px rgb(48, 48, 48);
             border: 6px solid #5C3317;
             border-radius: 4px;
+            overflow: hidden;
+          }
+          > .text-poster {
+            background-color: white;
+            height: 585px;
+            padding: 32px;
+            p {
+              color: black;
+              font: 225% "Montserrat";
+              text-transform: uppercase;
+            }
           }
           &.hang-high {
             margin-top: 15%;

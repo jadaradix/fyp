@@ -1,15 +1,15 @@
 // Internal Definitions
 var room;
 var walls;
-var zoom = 1;
-var intervalId;
+var zoom = 3.2;
+// zoom = 2;
 
 // User Definitions
 var perspective = 400;
 var size = 512;
 var translate = 256;
 var fps = 20;
-var zoomIncrement = 0.001;
+var zoomIncrement = -0.005;
 
 function getRoom(element) {
   return $("#" + element);
@@ -52,7 +52,5 @@ function resizeRoom() {
 function loopRoom() {
   walls.css("transform", "translateZ(-" + translate + "px) scaleX(" + zoom + ") scaleY(" + zoom + ")");
   zoom += zoomIncrement;
-  if (zoom > 1.6) {
-    clearInterval(intervalId);
-  }
+  // console.log(zoom);
 }

@@ -55,6 +55,23 @@ $(window).load(function() {
     resizeRoom();
   });
 
+  // Advance Poster work
+  var posterIntervalId;
+  var poster = $("#poster");
+  var posterText = "I believe in you so much. When we are together in person I will prove my love and belief in you. I think about being with you every day... I love you, James. I love you so much.";
+  var posterTextCharacters = posterText.split("");
+  var posterTextCurrentCharacter = 0;
+  var posterTextCurrent = "";
+  function posterNext() {
+    if (posterTextCurrentCharacter == posterText.length) {
+      return true;
+    }
+    posterTextCurrent += posterTextCharacters[posterTextCurrentCharacter];
+    poster.html(posterTextCurrent);
+    posterTextCurrentCharacter += 1;
+    return false;
+  }
+
   async.waterfall([
     function(next) {
       // room.fadeIn(1000, next);
@@ -62,7 +79,27 @@ $(window).load(function() {
       next();
     },
     function(next) {
-      intervalId = setInterval(loopRoom, (1000 / fps));
+      setTimeout(next, 1500);
+    },
+    function(next) {
+      var intervalId = setInterval(function() {
+        loopRoom();
+        if (zoom <= 1.9) {
+          posterIntervalId = setInterval(function() {
+            if (posterNext()) clearInterval(posterIntervalId);
+          }, 2000);
+        }
+        if (zoom <= 1) {
+          clearInterval(intervalId);
+          next();
+        }
+      }, (1000 / fps));
+    },
+    function(next) {
+      setTimeout(next, 3000);
+    },
+    function(next) {
+      room.fadeOut(1000);
     }
   ]);
 
