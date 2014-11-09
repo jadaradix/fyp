@@ -1,0 +1,13 @@
+h1, h2, h3 {
+  font-family: $font-heading;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 240%;
+  margin-top: $spacing * 2;
+  margin-bottom: $spacing;
+  text-align: center;
+  color: white;
+  opacity: 0.6;
+}

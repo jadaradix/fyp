@@ -14,11 +14,6 @@
   display: none;
 }
 
-.fade {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
 .no-overflow {
   overflow: hidden !important;
 }
@@ -29,6 +24,15 @@
 
 .listen-case {
   text-transform: none;
+}
+
+.wrapper {
+  > * {
+    width: 100%;
+    max-width: $r-width-2;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 sup, sub {
@@ -47,8 +51,17 @@ body {
   font: $font-body-size $font-body;
 }
 
-main {
-  display: block;
+p {
+  text-align: justify;
+  margin: ($spacing / 2) 0 ($spacing / 2) 0;
+}
+
+p:first-child {
+  margin-top: 0;
+}
+
+p:last-child {
+  margin-bottom: 0;
 }
 
 ul {

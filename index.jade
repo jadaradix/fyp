@@ -2,40 +2,75 @@ doctype html
 html
   head
     link(rel='stylesheet', href='css/fyp.scss.css')
-    link(rel='stylesheet', href='css/room.scss.css')
-    title Final Year Project
+    title Museum of the Future
     meta(charset='UTF-8')
     meta(name='robots', content='INDEX, FOLLOW')
     meta(name='viewport',content='width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
   body
+    .wrapper.header-wrapper
+      header.clear-fix
+        div
+          a(href="")
+            span.fa.fa-university
+            span  Museum of the Future
+        ul
+          li
+            a(href="") What
+          li
+            a(href="") Why
+          li
+            a(href="") Who
+          li
+            a(href="") Try Now
+          li
+            a(href="") Talk to Us
     main(ng-controller="mainController")
-      .room#room
-
-        .walls
-          .wall.left.pieces
-            .piece.hang-mid
-              img(src="https://pbs.twimg.com/media/BfTmFq2IcAEkcDi.jpg:large")
-            .piece.hang-mid
-              img(src="https://scontent-a-lhr.xx.fbcdn.net/hphotos-xaf1/v/t1.0-9/10154958_681162888607397_448008437432394940_n.jpg?oh=dd312454bf8051157caf165027e2391b&oe=54E7A3A7")
-          .wall.right.pieces
-            .piece.hang-mid
-              img(src="https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/10441344_10152000292392242_6311213336157621506_n.jpg?oh=1be872e9147eccfe267a33ec7a383893&oe=54ED8D16&__gda__=1423059011_4a72acc0c663da8ab0c7f7aa8c2fca7a")
-            .piece.hang-high
-              //- img(src="https://pbs.twimg.com/media/BmzbfdFIYAITlr6.jpg:large")
-              .text-poster
-                p#poster
-          .wall.top
-          .wall.bottom
-          .wall.back.piece
-            .piece.hang-high
-              img(src="http://fc05.deviantart.net/fs71/i/2011/140/f/4/cosmo_and_wanda_by_wakahama-d3gsefq.png")
-
-        .overlay
-          div.bottom
-            p
-              |&copy; James Garner &nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;
-              a(href="http://jada.io") jada.io
-
+      .wrapper.section-wrapper.bg-green.clear-fix
+        section
+          h1 Hello, World
+          p.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In maximus, libero efficitur feugiat lobortis, orci nibh viverra purus, ut vehicula lorem quam eget lectus. Curabitur leo nisi, ultricies feugiat eleifend eu, convallis in magna. Donec tincidunt nulla enim. Proin tincidunt magna vitae pretium sagittis.
+          p.
+            Aliquam in facilisis risus. Morbi lectus nibh, placerat ut dolor a, mattis semper dolor. Integer quis interdum lacus. Aliquam quam augue, auctor id nunc cursus, bibendum ultricies leo. Integer auctor leo nec iaculis pellentesque.
+      .wrapper.section-wrapper.bg-blue.clear-fix
+        section
+          h1 Hello, World
+          p.
+            Quisque pharetra libero sem, id dignissim mauris consectetur sed. Etiam non diam vitae lectus consectetur mollis. Fusce facilisis risus sed pellentesque tincidunt.
+          p.
+            Aenean at rutrum lectus. Suspendisse vitae condimentum mi. Etiam maximus tincidunt vestibulum. Morbi et cursus elit. In hac habitasse platea dictumst. Curabitur maximus erat non odio condimentum imperdiet. Nam sed nisi ac turpis iaculis iaculis a quis eros.
+      .wrapper.section-wrapper.bg-purple.clear-fix
+        section
+          h1 Hello, World
+          p.
+            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam et nunc a diam ullamcorper scelerisque.
+          p.
+            Ut pretium risus ac elit malesuada sollicitudin. Nunc vitae tortor risus. In mollis, eros ut congue cursus, mauris purus lacinia ante, at auctor sapien est et nunc. Nunc lobortis sapien sit amet risus sagittis laoreet. Maecenas accumsan purus sit amet ipsum ultrices, quis finibus lacus mollis.
+    .wrapper.footer-wrapper
+      footer.clear-fix
+        div.logo
+          p
+            span.fa.fa-university
+        div
+          ul
+            li
+              a(href="") What
+            li
+              a(href="") Why
+            li
+              a(href="") Who
+            li
+              a(href="") Try Now
+            li
+              a(href="") Talk to Us
+        div
+          ul
+            li
+              a(href="") Other Link 1
+            li
+              a(href="") Other Link 2
+            li
+              a(href="") Other Link 3
     script(src='js/jquery.min.js')
     script(src='js/angular.min.js')
     script(src='js/async.js')
