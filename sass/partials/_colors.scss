@@ -52,12 +52,7 @@ $gray: #5D6566;
 .fg-gray { color: $gray; }
 .ts-gray { @include text-shadow($gray); }
 
-$white: white;
-.bg-white { background-color: white; }
-.fg-white { color: $white; }
-.ts-white { @include text-shadow($white); }
-
-$fg: $white;
-$bg: darken($navy, 12%);
+$fg: white;
+$bg: rgb(32, 32, 32);
 $grayer: lighten($light-gray, 15%);
 $grayest: lighten($light-gray, 5%);

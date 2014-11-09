@@ -1,11 +1,24 @@
-function getRoomWalls(room) {
+// Internal Definitions
+var room;
+var walls;
+var zoom = 1.2;
+
+// User Definitions
+var perspective = 400;
+var size = 512;
+var translate = 256;
+var fps = 20;
+var zoomIncrement = 0.001;
+
+function getRoom(element) {
+  return $("#" + element);
+}
+
+function getWalls(room) {
   return $("> .walls", room);
 }
 
-function makeRoom(element, size, translate, perspective, zoom) {
-
-  var room = $("#" + element);
-  var walls = getRoomWalls(room);
+function updateRoom() {
 
   // Room
   room.css("width", size + "px");
@@ -27,26 +40,15 @@ function makeRoom(element, size, translate, perspective, zoom) {
 
 }
 
-$(window).load(function() {
+function resizeRoom() {
+  var w = $(window).width();
+  var h = $(window).height();
+  size = Math.min(w, h) - 32;
+  translate = size / 2;
+  updateRoom();
+}
 
-  // Definitions
-  var size = 600;
-  var translate = 300;
-  var perspective = 400;
-  var zoom = 1;
-
-  // Make room, get walls
-  var room = makeRoom("room", size, translate, perspective, zoom);
-  var walls = getRoomWalls(room);
-
-  // Zoom in via VBL
-  function vbl() {
-    walls.css("transform", "translateZ(-" + translate + "px) scaleX(" + zoom + ") scaleY(" + zoom + ")");
-    zoom += 0.001;
-  }
-  // setInterval(vbl, 100);
-
-  // Fade In
-  room.fadeIn(1000);
-
-});
+function loopRoom() {
+  walls.css("transform", "translateZ(-" + translate + "px) scaleX(" + zoom + ") scaleY(" + zoom + ")");
+  zoom += zoomIncrement;
+}
