@@ -62,7 +62,7 @@ $(window).load(function() {
       next();
     },
     function(next) {
-      // setInterval(loopRoom, (1000 / fps));
+      intervalId = setInterval(loopRoom, (1000 / fps));
     }
   ]);
 

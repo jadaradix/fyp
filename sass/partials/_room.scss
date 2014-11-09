@@ -12,8 +12,8 @@
   }
 
   .overlay {
-      background-image: url("../static/radial.png");
-      background-size: 100% 100%;
+    background-image: url("../static/radial.png");
+    background-size: 100% 100%;
     > div {
       position: absolute;
       padding: $spacing;
@@ -38,27 +38,39 @@
       width: 100%;
       height: 100%;
       background-color: rgb(195, 195, 195);
-      .piece {
-        float: left;
-        box-sizing: border-box;
-        width: 50%;
-        margin-top: 15%;
-        padding: $spacing;
-        img {
-          display: block;
-          width: 100%;
-          box-shadow: 0 5px 5px rgb(48, 48, 48);
-          border: 6px solid #5C3317;
-          border-radius: 4px;
+      &.piece, &.pieces {
+        .piece {
+          box-sizing: border-box;
+          padding: $spacing;
+          img {
+            display: block;
+            margin: 0 auto 0 auto;
+            width: 100%;
+            box-shadow: 0 5px 5px rgb(48, 48, 48);
+            border: 6px solid #5C3317;
+            border-radius: 4px;
+          }
+          &.hang-high {
+            margin-top: 15%;
+          }
+          &.hang-mid {
+            margin-top: 25%;
+          }
         }
       }
-    }
-
-    .wall.left, .wall.right, .wall.back {
-      background-image: url("../static/wall.jpg");
-      background-size: 55% (55% * (683 / 512));
-    }
-    .wall.back {
+      &.pieces {
+        .piece {
+          float: left;
+          width: 50%;
+        }
+      }
+      &.piece {
+        .piece {
+          img {
+            width: 80%;
+          }
+        }
+      }
       .door {
         position: absolute;
         bottom: 0;
@@ -70,6 +82,13 @@
         background-position: 0 96px;
         background-repeat: no-repeat;
       }
+    }
+
+    .wall.left, .wall.right, .wall.back {
+      background-image: url("../static/wall.jpg");
+      background-size: 55% (55% * (683 / 512));
+    }
+    .wall.back {
     }
     .wall.top {
       background-image: url("../static/ceiling.jpg");
