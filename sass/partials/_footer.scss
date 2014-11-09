@@ -21,12 +21,15 @@ footer {
   > div {
     margin-bottom: $spacing;
   }
+  > div:last-child {
+    margin-bottom: 0;
+  }
   > div.logo {
     display: none;
   }
 }
 
-@media only screen and (min-width: 772px) {
+@media only screen and (min-width: ($r-width-2 + ($spacing * 2))) {
   footer {
     padding-top: $spacing * 2;
     > div {
