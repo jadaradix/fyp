@@ -5,33 +5,26 @@ $line-height: 64px;
 }
 
 header {
-  padding: $spacing;
-  line-height: $line-height;
+  padding: ($spacing * 1.5) $spacing $spacing $spacing;
   font-family: $font-heading;
   text-transform: uppercase;
-  /* background-color: red; */
   > div {
     font-size: 140%;
     text-align: center;
-    /* background-color: green; */
-    a {
-      span.fa {
-        color: $blue;
-      }
-      span:not(.fa) {
-        color: $gray;
-      }
+    a img {
+      width: 75%;
     }
   }
   ul {
     margin: 0;
+    margin-top: $spacing / 2;
     list-style-type: none;
-    /* background-color: blue; */
     text-align: center;
     li {
       display: inline;
-      line-height: $line-height !important;
-      margin: 0 $spacing 0 0;
+      width: 50%;
+      margin: 0;
+      margin-right: $spacing;
       a {
         color: $light-gray;
       }
@@ -45,6 +38,7 @@ header {
 @media only screen and (min-width: $r-width-2) {
   header {
     > div {
+      width: 50%;
       float: left;
       font-size: 190%;
       text-align: left;
@@ -53,9 +47,9 @@ header {
       float: right;
       font-size: 110%;
       text-align: left;
-      li {
-        display: block;
-        float: left;
+      li:not(:first-child) {
+        margin-left: $spacing;
+        margin-right: 0;
       }
     }
   }

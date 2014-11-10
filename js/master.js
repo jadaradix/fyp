@@ -38,6 +38,6 @@ $(window).load(function() {
 
   var s = $("#demo-container").width();
   var m = new Museum("demo", s, 1, 400);
-  m.setLoopFunction(loop);
+  // m.setLoopFunction(loop);
 
 });
