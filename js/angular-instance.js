@@ -1,1 +1,0 @@
-var fypApp = angular.module('fypApp', []);

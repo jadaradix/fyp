@@ -14,7 +14,7 @@ module.exports = function(grunt) {
       generic: {
         command: [
           'mkdir -p build',
-          'for i in $(find * -type d -maxdepth 0 | grep -viw "node_modules\\|build\\|sass"); do rm -rf build/$i && cp -rf $i build/$i; done'
+          'for i in $(find * -type d -maxdepth 0 | grep -viw "node_modules\\|build\\|sass\\|private"); do rm -rf build/$i && cp -rf $i build/$i; done',
         ].join("&&")
       },
       markup: {
@@ -32,8 +32,9 @@ module.exports = function(grunt) {
       },
       js: {
         command: [
-          'cp $(npm root)/angular/angular.min.js build/js/angular.min.js',
-          'cp $(npm root)/angular/angular.min.js.map build/js/angular.min.js.map',
+          'rm -rf build/js && cp -rf js build/js',
+          // 'cp $(npm root)/angular/angular.min.js build/js/angular.min.js',
+          // 'cp $(npm root)/angular/angular.min.js.map build/js/angular.min.js.map',
           'cp $(npm root)/jquery/dist/jquery.min.js build/js/jquery.min.js',
           'cp $(npm root)/jquery/dist/jquery.min.map build/js/jquery.min.map',
           'cp $(npm root)/async/lib/async.js build/js/async.js'
@@ -58,6 +59,10 @@ module.exports = function(grunt) {
 
   grunt.registerTask('sass', [
     'shell:sass'
+  ]);
+
+  grunt.registerTask('js', [
+    'shell:js'
   ]);
 
   grunt.registerTask('clean', [

@@ -6,9 +6,9 @@ section {
   display: block;
   padding: ($spacing * 4) $spacing ($spacing * 2) $spacing;
   width: 100%;
-  > div:not(.icon) {
+  > div.icon-left {
   }
-  > div.icon {
+  > div.icon-right {
     margin-top: $spacing;
     text-align: center;
     font-size: 200%;
@@ -19,12 +19,12 @@ section {
 
 @media only screen and (min-width: $r-width-2) {
   section {
-    > div:not(.icon) {
+    > div.icon-left {
       float: left;
       width: 80%;
       /* background-color: red; */
     }
-    > div.icon {
+    > div.icon-right {
       float: right;
       width: 20%;
       margin-top: 0;

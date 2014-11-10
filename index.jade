@@ -1,7 +1,8 @@
 doctype html
 html
   head
-    link(rel='stylesheet', href='css/fyp.scss.css')
+    link(rel='stylesheet', href='css/master.scss.css')
+    link(rel='stylesheet', href='css/museum.scss.css')
     title Museum of the Future
     meta(charset='UTF-8')
     meta(name='robots', content='INDEX, FOLLOW')
@@ -27,7 +28,7 @@ html
     main(ng-controller="mainController")
       .wrapper.section-wrapper.bg-green
         section.clear-fix
-          div
+          div.icon-left
             h1 The Museum of the Future
             p.
               We love museums. We think it's really important that the knowledge of humanity is preserved and accessible forever! But museums have to be exciting and interesting as well.
@@ -37,28 +38,45 @@ html
               Welcome to a museum where the exhibits belong to you.
             p.
               Welcome to the Museum of the Future.
-          div.icon
+          div.icon-right
             span.fa.fa-star-o
       .wrapper.section-wrapper.bg-blue
         section.clear-fix
-          div
+          div.icon-left
             h1 It&rsquo;s all about You
             p.
-              Quisque pharetra libero sem, id dignissim mauris consectetur sed. Etiam non diam vitae lectus consectetur mollis. Fusce facilisis risus sed pellentesque tincidunt.
+              Museums are full of fascinating things, but in a world where whatever you want to know is just a click away, something has to change to make the museum relevant and as eye-opening as it used to be.
             p.
-              Aenean at rutrum lectus. Suspendisse vitae condimentum mi. Etiam maximus tincidunt vestibulum. Morbi et cursus elit. In hac habitasse platea dictumst. Curabitur maximus erat non odio condimentum imperdiet. Nam sed nisi ac turpis iaculis iaculis a quis eros.
-          div.icon
+              The Museum of the Future works out your interests from your Twitter or Facebook posts (or you can choose what tickles your fancy yourself). They're then brought to life in a vibrant 3D experience with exhibits from all over the Web.
+          div.icon-right
             span.fa.fa-thumbs-o-up
-      .wrapper.section-wrapper.bg-purple
+      .wrapper.section-wrapper.bg-white
         section.clear-fix
-          div
-            h1 And it&rsquo;s always up-to-date
-            p.
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam et nunc a diam ullamcorper scelerisque.
-            p.
-              Ut pretium risus ac elit malesuada sollicitudin. Nunc vitae tortor risus. In mollis, eros ut congue cursus, mauris purus lacinia ante, at auctor sapien est et nunc. Nunc lobortis sapien sit amet risus sagittis laoreet. Maecenas accumsan purus sit amet ipsum ultrices, quis finibus lacus mollis.
-          div.icon
-            span.fa.fa-clock-o
+          div#demo-container
+            .museum#demo
+              .room
+                .walls
+                  .wall.left.pieces
+                    .piece.hang-high
+                      .blank.bg-red
+                    .piece.hang-high
+                      .blank.bg-green
+                  .wall.right.pieces
+                    .piece.hang-high
+                      .blank.bg-blue
+                    .piece.hang-high
+                      .blank.bg-yellow
+                  .wall.top
+                  .wall.bottom
+                  .wall.back.piece
+                    .piece.hang-high
+                      .blank.bg-orange
+                .overlay
+                  div.bottom
+                    p
+                      |Museum of the Future, &copy;
+                      a(href="http://jada.io") James Garner
+                      |  2014
     .wrapper.footer-wrapper
       footer.clear-fix
         div.logo
@@ -85,7 +103,6 @@ html
             li
               a(href="") Other Link 3
     script(src='js/jquery.min.js')
-    script(src='js/angular.min.js')
     script(src='js/async.js')
-    script(src='js/room.js')
-    script(src='js/fyp.js')
+    script(src='js/museum.js')
+    script(src='js/master.js')
