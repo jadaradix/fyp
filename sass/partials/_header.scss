@@ -47,9 +47,11 @@ header {
       float: right;
       font-size: 110%;
       text-align: left;
+      li {
+        margin-right: 0;
+      }
       li:not(:first-child) {
         margin-left: $spacing;
-        margin-right: 0;
       }
     }
   }

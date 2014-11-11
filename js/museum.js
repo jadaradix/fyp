@@ -1,36 +1,45 @@
-function Museum(element, size, zoom, perspective) {
+function Museum(element, zoom, perspective) {
 
   var _self = this;
 
   // Element Definitions
   _self.museumElement = null;
   _self.roomElement = null;
+  _self.sideElement = null;
   _self.wallsElement = null;
 
   // Generic Definitions
-  _self.size = 512;
   _self.zoom = 1;
-  _self.perspective = _self.size;
-  _self.translate = _self.size / 2;
+  _self.perspective = 256;
+  _self.translate = 0;
 
-  // Get Element
+  // Get Main Element
   if (!element) return;
   element = $("#" + element);
   if (element) {
     _self.museumElement = element;
   } else return;
 
+  // Get Room and Wall Elements
+  _self.roomElement = $("> .room", _self.museumElement);
+  _self.sideElement = $("> .side", _self.museumElement);
+  _self.wallsElement = $("> .walls", _self.roomElement);
+
+  // Get Room
+  _self.getRoom = function() {
+    return _self.roomElement;
+  }
+
   // Set Size
-  _self.setSize = function(size) {
+  _self.updateSize = function() {
 
-    if (!size) return;
-    _self.size = size;
+    var w = _self.roomElement.outerWidth();
+    console.log(w);
+    _self.translate = w / 2;
+    _self.roomElement.height(w);
 
-    var roomSize = _self.size * 1.0;
-    _self.translate = roomSize / 2;
-
-    _self.roomElement.css("width", roomSize + "px");
-    _self.roomElement.css("height", roomSize + "px");
+    // _self.roomElement.css("width", roomSize + "px");
+    // _self.roomElement.css("height", roomSize + "px");
     $(".wall.left", _self.wallsElement).css("transform", "rotateY(90deg) translateZ(-" + _self.translate + "px)");
     $(".wall.right", _self.wallsElement).css("transform", "rotateY(-90deg) translateZ(-" + _self.translate + "px)");
     $(".wall.top", _self.wallsElement).css("transform", "rotateX(-90deg) translateZ(-" + _self.translate + "px)");
@@ -38,6 +47,7 @@ function Museum(element, size, zoom, perspective) {
     $(".wall.back", _self.wallsElement).css("transform", "rotateX(-180deg) translateZ(" + _self.translate + "px) scaleY(-1)");
 
   }
+  _self.updateSize();
 
   // Set Zoom
   _self.setZoom = function(zoom) {
@@ -63,9 +73,11 @@ function Museum(element, size, zoom, perspective) {
     }, (1000 / 20));
   }
 
-  // Get Room and Walls
-  _self.roomElement = $("> .room", _self.museumElement);
-  _self.wallsElement = $("> .walls", _self.roomElement);
+  // Show Museum
+  _self.show = function() {
+    _self.roomElement.css("opacity", 1);
+    _self.sideElement.css("opacity", 1);
+  }
 
   // Debug
   console.log(_self.museumElement);
@@ -73,11 +85,7 @@ function Museum(element, size, zoom, perspective) {
   console.log(_self.wallsElement);
 
   // Initialise
-  _self.setSize(size);
   _self.setZoom(zoom);
   _self.setPerspective(perspective);
-
-  // Show Museum
-  _self.museumElement.fadeIn();
 
 }

@@ -15,13 +15,9 @@ html
             img(src="static/logo.svg" alt="Museum of the Future")
         ul
           li
-            a(href="") What
+            a(href="") Instant Demo
           li
-            a(href="") Why
-          li
-            a(href="") Who
-          li
-            a(href="") Try Now
+            a(href="") Tech
           li
             a(href="") Talk to Us
     main(ng-controller="mainController")
@@ -52,7 +48,7 @@ html
       .wrapper.section-wrapper.bg-white
         section.clear-fix
           div#demo-container
-            .museum#demo
+            .museum.clear-fix#demo
               .room
                 .walls
                   .wall.left.pieces
@@ -73,9 +69,11 @@ html
                 .overlay
                   div.bottom
                     p
-                      |Museum of the Future, &copy;
-                      a(href="http://jada.io") James Garner
-                      |  2014
+                      |&copy; Museum of the Future, 2014 &mdash;
+              .side
+                .side-inner
+                  p.
+                    Hello, World.
     .wrapper.footer-wrapper
       footer.clear-fix
         div.logo
@@ -84,23 +82,17 @@ html
         div
           ul
             li
-              a(href="") What
+              a(href="") Instant Demo
             li
-              a(href="") Why
-            li
-              a(href="") Who
-            li
-              a(href="") Try Now
+              a(href="") Tech
             li
               a(href="") Talk to Us
         div
           ul
             li
-              a(href="") Other Link 1
+              a(href="") Our Clients
             li
-              a(href="") Other Link 2
-            li
-              a(href="") Other Link 3
+              a(href="") Press
     script(src='js/jquery.min.js')
     script(src='js/async.js')
     script(src='js/museum.js')

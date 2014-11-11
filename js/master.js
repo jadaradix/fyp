@@ -36,8 +36,8 @@ $(window).load(function() {
     return false;
   }
 
-  var s = $("#demo-container").width();
-  var m = new Museum("demo", s, 1, 400);
-  // m.setLoopFunction(loop);
+  var m = new Museum("demo", 1, 400);
+  m.setLoopFunction(loop);
+  m.show();
 
 });
