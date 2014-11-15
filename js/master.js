@@ -38,11 +38,11 @@ $(window).load(function() {
       return false;
     }
     var r = m.showRoom(room);
-    r.zoom = 1;
-    r.setLoopFunction(loop);
+    // r.zoom = 1;
+    // r.setLoopFunction(loop);
   }
 
-  showRoomZoom("room-blue");
+  showRoomZoom("room-red");
 
   $("#show-red-room-button").click(function() {
     showRoomZoom("room-red");

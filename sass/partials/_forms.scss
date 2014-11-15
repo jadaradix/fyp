@@ -3,10 +3,18 @@ input, button {
   width: 100%;
   padding: $spacing ($spacing / 2) $spacing ($spacing / 2);
   margin-bottom: $spacing / 2;
-  font: $font-body-size $font-body;
+  font-family: $font-body;
+  font-size: 120%;
+  letter-spacing: 1px;
   border: 0;
   border-radius: $radius;
   background-color: $gray;
   color: white;
   text-transform: uppercase;
+  span.fa.left {
+    margin-right: $spacing / 2;
+  }
+  span.fa.right {
+    margin-left: $spacing / 2;
+  }
 }

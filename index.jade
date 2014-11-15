@@ -21,30 +21,15 @@ html
           li
             a(href="") Talk to Us
     main(ng-controller="mainController")
-      .wrapper.section-wrapper.bg-green
+      .wrapper.section-wrapper.bg-purple
         section.clear-fix
-          div.icon-left
-            h1 The Museum of the Future
+          div.feature
+            h1 Museum of the Future
             p.
-              We love museums. We think it's really important that the knowledge of humanity is preserved and accessible forever! But museums have to be exciting and interesting as well.
-            p.
-              Imagine a museum about everything you actually care about and love (and more) &mdash; a unique insight into your own world, built just for you.
-            p.
-              Welcome to a museum where the exhibits belong to you.
-            p.
-              Welcome to the Museum of the Future.
-          div.icon-right
-            span.fa.fa-star-o
-      .wrapper.section-wrapper.bg-blue
-        section.clear-fix
-          div.icon-left
-            h1 It&rsquo;s all about You
-            p.
-              Museums are full of fascinating things, but in a world where whatever you want to know is just a click away, something has to change to make the museum relevant and as eye-opening as it used to be.
-            p.
-              The Museum of the Future works out your interests from your Twitter or Facebook posts (or you can choose what tickles your fancy yourself). They're then brought to life in a vibrant 3D experience with exhibits from all over the Web.
-          div.icon-right
-            span.fa.fa-thumbs-o-up
+              A museum about everything you care about and love &mdash; a unique insight into your own world, built just for you.
+            button(id="make-a-museum").bg-blue
+              span Make my Museum
+              span.right.fa.fa-caret-right
       .wrapper.section-wrapper.bg-white
         section.clear-fix
           div#demo-container
@@ -67,6 +52,11 @@ html
                   .wall.back.piece
                     .piece.hang-high
                       .blank(style="background-color: rgb(51, 0, 0)")
+                .overlay
+                //- .overlay
+                //-   div.bottom
+                //-     p
+                //-       |&copy; Museum of the Future, 2014 &mdash;
               .room#room-green
                 .walls
                   .wall.left.pieces
@@ -84,6 +74,7 @@ html
                   .wall.back.piece
                     .piece.hang-high
                       .blank(style="background-color: rgb(0, 51, 0)")
+                .overlay
               .room#room-blue
                 .walls
                   .wall.left.pieces
@@ -102,9 +93,6 @@ html
                     .piece.hang-high
                       .blank(style="background-color: rgb(0, 0, 51)")
                 .overlay
-                  div.bottom
-                    p
-                      |&copy; Museum of the Future, 2014 &mdash;
               .side
                 .side-inner
                   button(id="show-red-room-button") Show Red Room
@@ -112,6 +100,28 @@ html
                   button(id="show-blue-room-button") Show Blue Room
                   p.
                     Hello, World.
+      .wrapper.section-wrapper.bg-green
+        section.clear-fix
+          div.icon-left
+            h1 What is it?
+            p.
+              We love museums. We think it's really important that the knowledge of humanity is preserved and accessible forever! But museums have to be exciting and interesting as well.
+            p.
+              Imagine a museum about everything you actually care about and love (and more) &mdash; a unique insight into your own world, built just for you.
+            p.
+              Welcome to a museum where the exhibits belong to you. Welcome to Museum of the Future.
+          div.icon-right
+            span.fa.fa-star-o
+      .wrapper.section-wrapper.bg-blue
+        section.clear-fix
+          div.icon-left
+            h1 It&rsquo;s all about You
+            p.
+              Museums are full of fascinating things, but in a world where whatever you want to know is just a click away, something has to change to make the museum relevant and as eye-opening as it used to be.
+            p.
+              Museum of the Future works out your interests from your Twitter or Facebook posts (or you can choose what tickles your fancy yourself). They're then brought to life in a vibrant 3D experience with exhibits from all over the Web.
+          div.icon-right
+            span.fa.fa-thumbs-o-up
     .wrapper.footer-wrapper
       footer.clear-fix
         div.logo
