@@ -26,18 +26,34 @@ function easyAjax(url, callback) {
 
 $(window).load(function() {
 
-  function loop(museum) {
-    museum.zoom += 0.001;
-    if (museum.zoom >= 2) {
-      museum.zoom = 2;
-      return true;
+  var m = new Museum("colours");
+  function showRoomZoom(room) {
+    function loop(room) {
+      room.zoom += 0.001;
+      if (room.zoom >= 2) {
+        room.zoom = 2;
+        return true;
+      }
+      room.setZoom(room.zoom);
+      return false;
     }
-    museum.setZoom(m.zoom);
-    return false;
+    var r = m.showRoom(room);
+    r.zoom = 1;
+    r.setLoopFunction(loop);
   }
 
-  var m = new Museum("demo", 1, 400);
-  m.setLoopFunction(loop);
-  m.show();
+  showRoomZoom("room-blue");
+
+  $("#show-red-room-button").click(function() {
+    showRoomZoom("room-red");
+  });
+
+  $("#show-green-room-button").click(function() {
+    showRoomZoom("room-green");
+  });
+
+  $("#show-blue-room-button").click(function() {
+    showRoomZoom("room-blue");
+  });
 
 });

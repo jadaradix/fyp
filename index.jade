@@ -48,30 +48,68 @@ html
       .wrapper.section-wrapper.bg-white
         section.clear-fix
           div#demo-container
-            .museum.clear-fix#demo
-              .room
+            .museum.clear-fix#colours
+              .room-width
+              .room#room-red
                 .walls
                   .wall.left.pieces
                     .piece.hang-high
-                      .blank.bg-red
+                      .blank(style="background-color: rgb(255, 0, 0)")
                     .piece.hang-high
-                      .blank.bg-green
+                      .blank(style="background-color: rgb(204, 0, 0)")
                   .wall.right.pieces
                     .piece.hang-high
-                      .blank.bg-blue
+                      .blank(style="background-color: rgb(153, 0, 0)")
                     .piece.hang-high
-                      .blank.bg-yellow
+                      .blank(style="background-color: rgb(102, 0, 0)")
                   .wall.top
                   .wall.bottom
                   .wall.back.piece
                     .piece.hang-high
-                      .blank.bg-orange
+                      .blank(style="background-color: rgb(51, 0, 0)")
+              .room#room-green
+                .walls
+                  .wall.left.pieces
+                    .piece.hang-high
+                      .blank(style="background-color: rgb(0, 255, 0)")
+                    .piece.hang-high
+                      .blank(style="background-color: rgb(0, 204, 0)")
+                  .wall.right.pieces
+                    .piece.hang-high
+                      .blank(style="background-color: rgb(0, 153, 0)")
+                    .piece.hang-high
+                      .blank(style="background-color: rgb(0, 102, 0)")
+                  .wall.top
+                  .wall.bottom
+                  .wall.back.piece
+                    .piece.hang-high
+                      .blank(style="background-color: rgb(0, 51, 0)")
+              .room#room-blue
+                .walls
+                  .wall.left.pieces
+                    .piece.hang-high
+                      .blank(style="background-color: rgb(0, 0, 255)")
+                    .piece.hang-high
+                      .blank(style="background-color: rgb(0, 0, 204)")
+                  .wall.right.pieces
+                    .piece.hang-high
+                      .blank(style="background-color: rgb(0, 0, 153)")
+                    .piece.hang-high
+                      .blank(style="background-color: rgb(0, 0, 102)")
+                  .wall.top
+                  .wall.bottom
+                  .wall.back.piece
+                    .piece.hang-high
+                      .blank(style="background-color: rgb(0, 0, 51)")
                 .overlay
                   div.bottom
                     p
                       |&copy; Museum of the Future, 2014 &mdash;
               .side
                 .side-inner
+                  button(id="show-red-room-button") Show Red Room
+                  button(id="show-green-room-button") Show Green Room
+                  button(id="show-blue-room-button") Show Blue Room
                   p.
                     Hello, World.
     .wrapper.footer-wrapper

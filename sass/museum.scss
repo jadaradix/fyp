@@ -11,8 +11,12 @@
     opacity: 0;
   }
 
-  .room {
+  .room, .room-width {
+    width: 65%;
+  }
 
+  .room {
+    display: none;
     width: 65%;
     overflow: hidden;
     background-color: black;
@@ -115,6 +119,7 @@
     width: 35%;
     padding-left: $spacing;
     .side-inner {
+      position: relative;
       height: 320px;
       /* background-color: blue; */
     }

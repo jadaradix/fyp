@@ -1,53 +1,13 @@
-function Museum(element, zoom, perspective) {
+function Room(name, element) {
 
   var _self = this;
 
-  // Element Definitions
-  _self.museumElement = null;
-  _self.roomElement = null;
-  _self.sideElement = null;
-  _self.wallsElement = null;
-
-  // Generic Definitions
+  _self.name = (name || "Room");
+  _self.element = (element || null);
+  _self.wallsElement = $("> .walls", element);
   _self.zoom = 1;
-  _self.perspective = 256;
+  _self.perspective = 350;
   _self.translate = 0;
-
-  // Get Main Element
-  if (!element) return;
-  element = $("#" + element);
-  if (element) {
-    _self.museumElement = element;
-  } else return;
-
-  // Get Room and Wall Elements
-  _self.roomElement = $("> .room", _self.museumElement);
-  _self.sideElement = $("> .side", _self.museumElement);
-  _self.wallsElement = $("> .walls", _self.roomElement);
-
-  // Get Room
-  _self.getRoom = function() {
-    return _self.roomElement;
-  }
-
-  // Set Size
-  _self.updateSize = function() {
-
-    var w = _self.roomElement.outerWidth();
-    console.log(w);
-    _self.translate = w / 2;
-    _self.roomElement.height(w);
-
-    // _self.roomElement.css("width", roomSize + "px");
-    // _self.roomElement.css("height", roomSize + "px");
-    $(".wall.left", _self.wallsElement).css("transform", "rotateY(90deg) translateZ(-" + _self.translate + "px)");
-    $(".wall.right", _self.wallsElement).css("transform", "rotateY(-90deg) translateZ(-" + _self.translate + "px)");
-    $(".wall.top", _self.wallsElement).css("transform", "rotateX(-90deg) translateZ(-" + _self.translate + "px)");
-    $(".wall.bottom", _self.wallsElement).css("transform", "rotateX(-90deg) translateZ(" + _self.translate + "px) scaleY(-1)");
-    $(".wall.back", _self.wallsElement).css("transform", "rotateX(-180deg) translateZ(" + _self.translate + "px) scaleY(-1)");
-
-  }
-  _self.updateSize();
 
   // Set Zoom
   _self.setZoom = function(zoom) {
@@ -60,32 +20,84 @@ function Museum(element, zoom, perspective) {
   _self.setPerspective = function(perspective) {
     if (!perspective) return;
     _self.perspective = perspective;
-    _self.roomElement.css("perspective", _self.perspective + "px");
+    _self.element.css("perspective", _self.perspective + "px");
   }
 
   // Set Loop Function
+  _self.loopIntervalId = null;
   _self.setLoopFunction = function(f) {
-    var loopIntervalId;
-    loopIntervalId = setInterval(function() {
+    clearInterval(_self.loopIntervalId);
+    _self.loopIntervalId = setInterval(function() {
       if (f(_self)) {
-        clearInterval(loopIntervalId);
+        clearInterval(_self.loopIntervalId);
       }
     }, (1000 / 20));
   }
 
-  // Show Museum
-  _self.show = function() {
-    _self.roomElement.css("opacity", 1);
-    _self.sideElement.css("opacity", 1);
+}
+
+function Museum(element) {
+
+  var _self = this;
+
+  // Element Definitions
+  _self.museumElement = null;
+  _self.sideElement = null;
+  _self.roomElements = [];
+  _self.rooms = [];
+
+  // Get Main Element
+  if (!element) return;
+  element = $("#" + element);
+  if (element) {
+    _self.museumElement = element;
+  } else return;
+
+  // Get Side Element
+  _self.sideElement = $("> .side", _self.museumElement);
+
+  // Populate Room Array from Room Elements
+  _self.roomElements = $("> .room", _self.museumElement);
+  $.each(_self.roomElements, function(index, roomElement) {
+    var tRoom = $(roomElement);
+    _self.rooms.push(
+      new Room(tRoom.attr("id"), tRoom)
+    );
+  });
+
+  // Set Size
+  _self.updateSize = function() {
+    var w = $(".room-width", _self.element).width();
+    var t = w / 2;
+
+    $.each(_self.rooms, function(index, room) {
+      room.translate = t;
+      room.element.height(w);
+      $(".wall.left", room.wallsElement).css("transform", "rotateY(90deg) translateZ(-" + t + "px)");
+      $(".wall.right", room.wallsElement).css("transform", "rotateY(-90deg) translateZ(-" + t + "px)");
+      $(".wall.top", room.wallsElement).css("transform", "rotateX(-90deg) translateZ(-" + t + "px)");
+      $(".wall.bottom", room.wallsElement).css("transform", "rotateX(-90deg) translateZ(" + t + "px) scaleY(-1)");
+      $(".wall.back", room.wallsElement).css("transform", "rotateX(-180deg) translateZ(" + t + "px) scaleY(-1)");
+      room.setZoom(room.zoom);
+      room.setPerspective(room.perspective);
+    });
+
   }
+  _self.updateSize();
 
-  // Debug
-  console.log(_self.museumElement);
-  console.log(_self.roomElement);
-  console.log(_self.wallsElement);
-
-  // Initialise
-  _self.setZoom(zoom);
-  _self.setPerspective(perspective);
+  // Show Room
+  _self.showRoom = function(name) {
+    $.each(_self.rooms, function(index, room) {
+      room.element.css("display", "none");
+    });
+    var room = ($.grep(_self.rooms, function(room, index) {
+      return (room.name == name);
+    }) || [null])[0];
+    room.element
+      .css("display", "block")
+      .css("opacity", 1);
+    _self.sideElement.css("opacity", 1);
+    return room;
+  }
 
 }
