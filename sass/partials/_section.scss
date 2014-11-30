@@ -1,5 +1,8 @@
 .section-wrapper {
   width: 100%;
+  &.tall {
+    height: 480px;
+  }
 }
 
 section {
@@ -7,7 +10,7 @@ section {
   padding: ($spacing * 4) $spacing ($spacing * 2) $spacing;
   width: 100%;
   p {
-    color: transparentize(white, 0.2);
+    color: transparentize(white, 0.1);
   }
   > div.icon-left {
   }
@@ -18,26 +21,34 @@ section {
     color: white;
     opacity: 0.6;
   }
-  > div.feature {
-    margin-top: $spacing;
-    margin-bottom: $spacing * 3;
-    > * {
-      text-align: center;
+}
+
+.section-wrapper.feature {
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  section {
+    > div {
+      margin-top: $spacing;
+      margin-bottom: $spacing * 3;
+      > * {
+        text-align: center;
+      }
+      > p {
+        margin: 0 auto 0 auto;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      > button {
+        margin: ($spacing * 2) auto 0 auto;
+      }
     }
-    > p {
-      margin: 0 auto 0 auto;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-    > button {
-      margin: ($spacing * 2) auto 0 auto;
-    }
-  }
+  } 
 }
 
 @media only screen and (min-width: $r-width-1) {
-  section {
-    > div.feature {
+  .section-wrapper.feature section {
+    > div {
       p {
         width: 65%;
       }
@@ -63,7 +74,9 @@ section {
       font-size: 800%;
       /* background-color: green; */
     }
-    > div.feature {
+  }
+  .section-wrapper.feature section {
+    > div {
       > button {
         width: 30%;
       }

@@ -15,22 +15,22 @@ html
             img(src="static/logo.svg" alt="Museum of the Future")
         ul
           li
-            a(href="") Instant Demo
+            a(href="#demo", data-scroll-to="demo") Try it Now
           li
-            a(href="") Tech
+            a(href="#tech", data-scroll-to="tech") Tech
           li
-            a(href="") Talk to Us
+            a(href="#contact", data-scroll-to="contact") Talk to Us
     main(ng-controller="mainController")
-      .wrapper.section-wrapper.bg-purple
+      .wrapper.section-wrapper.feature.bg-blue
         section.clear-fix
-          div.feature
+          div
             h1 Museum of the Future
             p.
               A museum about everything you care about and love &mdash; a unique insight into your own world, built just for you.
             button(id="make-a-museum").bg-blue
               span Make my Museum
               span.right.fa.fa-caret-right
-      .wrapper.section-wrapper.bg-white
+      .wrapper.section-wrapper.bg-white#demo
         section.clear-fix
           div#demo-container
             .museum.clear-fix#colours
@@ -95,9 +95,9 @@ html
                 .overlay
               .side
                 .side-inner
-                  button(id="show-red-room-button") Show Red Room
-                  button(id="show-green-room-button") Show Green Room
-                  button(id="show-blue-room-button") Show Blue Room
+                  button(id="show-red-room-button").gray Show Red Room
+                  button(id="show-green-room-button").gray Show Green Room
+                  button(id="show-blue-room-button").gray Show Blue Room
                   p.
                     Hello, World.
       .wrapper.section-wrapper.bg-green
@@ -112,7 +112,7 @@ html
               Welcome to a museum where the exhibits belong to you. Welcome to Museum of the Future.
           div.icon-right
             span.fa.fa-star-o
-      .wrapper.section-wrapper.bg-blue
+      .wrapper.section-wrapper.bg-purple
         section.clear-fix
           div.icon-left
             h1 It&rsquo;s all about You
@@ -122,6 +122,22 @@ html
               Museum of the Future works out your interests from your Twitter or Facebook posts (or you can choose what tickles your fancy yourself). They're then brought to life in a vibrant 3D experience with exhibits from all over the Web.
           div.icon-right
             span.fa.fa-thumbs-o-up
+      .wrapper.section-wrapper.hide.bg-red.tall#tech
+        section.clear-fix
+          div.icon-left
+            h1 The Fizz, Bangs and Whistles
+            p.
+              Hello, World.
+          div.icon-right
+            span.fa.fa-terminal
+      .wrapper.section-wrapper.hide.bg-yellow.tall#contact
+        section.clear-fix
+          div.icon-left
+            h1 Let's Work Together
+            p.
+              Hello, World.
+          div.icon-right
+            span.fa.fa-envelope-o
     .wrapper.footer-wrapper
       footer.clear-fix
         div.logo
@@ -130,17 +146,17 @@ html
         div
           ul
             li
-              a(href="") Instant Demo
+              a(href="#demo", data-scroll-to="demo") Try it Now
             li
-              a(href="") Tech
+              a(href="#tech", data-scroll-to="tech") Tech
             li
-              a(href="") Talk to Us
-        div
-          ul
-            li
-              a(href="") Our Clients
-            li
-              a(href="") Press
+              a(href="#contact", data-scroll-to="contact") Talk to Us
+        //- div
+        //-   ul
+        //-     li
+        //-       a(href="") Our Clients
+        //-     li
+        //-       a(href="") Press
     script(src='js/jquery.min.js')
     script(src='js/async.js')
     script(src='js/museum.js')
