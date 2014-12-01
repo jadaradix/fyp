@@ -1,0 +1,12 @@
+{
+  "museums": [
+    {
+      "id": 1,
+      "name": "James' Museum"
+    },
+    {
+      "id": 2,
+      "name": "Adam's Museum"
+    }
+  ]
+}

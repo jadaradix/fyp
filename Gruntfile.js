@@ -39,6 +39,9 @@ module.exports = function(grunt) {
           'cp $(npm root)/jquery/dist/jquery.min.map build/js/jquery.min.map',
           'cp $(npm root)/async/lib/async.js build/js/async.js'
         ].join("&&")
+      },
+      server: {
+        command: "clear && node server.js"
       }
     }
 
@@ -53,6 +56,10 @@ module.exports = function(grunt) {
     'shell:js'
   ]);
 
+  grunt.registerTask('clean', [
+    'shell:clean'
+  ]);
+
   grunt.registerTask('markup', [
     'shell:markup'
   ]);
@@ -65,8 +72,8 @@ module.exports = function(grunt) {
     'shell:js'
   ]);
 
-  grunt.registerTask('clean', [
-    'shell:clean'
+  grunt.registerTask('server', [
+    'shell:server'
   ]);
 
 };
