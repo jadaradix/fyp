@@ -63,6 +63,10 @@ function apiHandle(req, res) {
   var parameters = urlStuff.hrefParts.slice(1);
 }
 
+app.get("/favicon.ico", function(req, res) {
+  serveFile("static/favicon.ico", res);
+});
+
 app.get("/api/museum/*", function(req, res) {
   serveJSON({}, res);
 });
