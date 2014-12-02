@@ -1,0 +1,18 @@
+- var title = "404"
+doctype html
+html
+  head
+    include partials/_head-head.jade
+  body
+    include partials/_head-body.jade
+    main(ng-controller="mainController")
+      .wrapper.section-wrapper.feature.bg-blue
+        section.clear-fix
+          div
+            h1 404
+            p.
+              Well then. This is awkward.
+    include partials/_foot-body.jade
+    script(src="js/jquery.min.js")
+    script(src="js/async.js")
+    script(src="js/error.js")

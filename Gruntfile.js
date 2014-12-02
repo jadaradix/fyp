@@ -19,7 +19,7 @@ module.exports = function(grunt) {
       },
       markup: {
         command: [
-          '$(npm bin)/jade index.jade && mv index.html build/index.html',
+          '$(npm bin)/jade index.jade 404.jade 403.jade && mv *.html build',
         ].join("&&")
       },
       sass: {

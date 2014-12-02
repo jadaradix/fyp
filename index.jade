@@ -1,27 +1,10 @@
+- var title = "Museum of the Future"
 doctype html
 html
   head
-    base(href="http://motf.me/")
-    link(rel="stylesheet", href="css/master.scss.css")
-    link(rel="stylesheet", href="css/museum.scss.css")
-    title Museum of the Future
-    meta(charset="UTF-8")
-    meta(name="robots", content="INDEX, FOLLOW")
-    meta(name="viewport", content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no")
-    link(rel="icon", type="image/png", href="static/favicon.png")
+    include partials/_head-head.jade
   body
-    .wrapper.header-wrapper
-      header.clear-fix
-        div
-          a(href="")
-            img(src="static/logo.svg" alt="Museum of the Future")
-        ul
-          li
-            a(href="#demo", data-scroll-to="demo") Try it Now
-          li
-            a(href="#tech", data-scroll-to="tech") Tech
-          li
-            a(href="#contact", data-scroll-to="contact") Talk to Us
+    include partials/_head-body.jade
     main(ng-controller="mainController")
       .wrapper.section-wrapper.feature.bg-blue
         section.clear-fix
@@ -140,25 +123,7 @@ html
               Hello, World.
           div.icon-right
             span.fa.fa-envelope-o
-    .wrapper.footer-wrapper
-      footer.clear-fix
-        div.logo
-          p
-            span.fa.fa-university
-        div
-          ul
-            li
-              a(href="#demo", data-scroll-to="demo") Try it Now
-            li
-              a(href="#tech", data-scroll-to="tech") Tech
-            li
-              a(href="#contact", data-scroll-to="contact") Talk to Us
-        //- div
-        //-   ul
-        //-     li
-        //-       a(href="") Our Clients
-        //-     li
-        //-       a(href="") Press
+    include partials/_foot-body.jade
     script(src="js/jquery.min.js")
     script(src="js/async.js")
     script(src="js/museum.js")
