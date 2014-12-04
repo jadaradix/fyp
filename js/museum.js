@@ -1,8 +1,8 @@
-function Room(name, element) {
+function Exhibition(name, element) {
 
   var _self = this;
 
-  _self.name = (name || "Room");
+  _self.name = (name || "Exhibition");
   _self.element = (element || null);
   _self.wallsElement = $("> .walls", element);
   _self.zoom = 1;
@@ -43,8 +43,8 @@ function Museum(element) {
   // Element Definitions
   _self.museumElement = null;
   _self.sideElement = null;
-  _self.roomElements = [];
-  _self.rooms = [];
+  _self.exhibitionElements = [];
+  _self.exhibitions = [];
 
   // Get Main Element
   if (!element) return;
@@ -56,48 +56,48 @@ function Museum(element) {
   // Get Side Element
   _self.sideElement = $("> .side", _self.museumElement);
 
-  // Populate Room Array from Room Elements
-  _self.roomElements = $("> .room", _self.museumElement);
-  $.each(_self.roomElements, function(index, roomElement) {
-    var tRoom = $(roomElement);
-    _self.rooms.push(
-      new Room(tRoom.attr("id"), tRoom)
+  // Populate Exhibition Array from Exhibition Elements
+  _self.exhibitionElements = $("> .exhibition", _self.museumElement);
+  $.each(_self.exhibitionElements, function(index, exhibitionElement) {
+    var tExhibition = $(exhibitionElement);
+    _self.exhibitions.push(
+      new Exhibition(tExhibition.attr("id"), tExhibition)
     );
   });
 
   // Set Size
   _self.updateSize = function() {
-    var w = $(".room-width", _self.element).width();
+    var w = $(".exhibition-width", _self.element).width();
     var t = w / 2;
 
-    $.each(_self.rooms, function(index, room) {
-      room.translate = t;
-      room.element.height(w);
-      $(".wall.left", room.wallsElement).css("transform", "rotateY(90deg) translateZ(-" + t + "px)");
-      $(".wall.right", room.wallsElement).css("transform", "rotateY(-90deg) translateZ(-" + t + "px)");
-      $(".wall.top", room.wallsElement).css("transform", "rotateX(-90deg) translateZ(-" + t + "px)");
-      $(".wall.bottom", room.wallsElement).css("transform", "rotateX(-90deg) translateZ(" + t + "px) scaleY(-1)");
-      $(".wall.back", room.wallsElement).css("transform", "rotateX(-180deg) translateZ(" + t + "px) scaleY(-1)");
-      room.setZoom(room.zoom);
-      room.setPerspective(room.perspective);
+    $.each(_self.exhibitions, function(index, exhibition) {
+      exhibition.translate = t;
+      exhibition.element.height(w);
+      $(".wall.left", exhibition.wallsElement).css("transform", "rotateY(90deg) translateZ(-" + t + "px)");
+      $(".wall.right", exhibition.wallsElement).css("transform", "rotateY(-90deg) translateZ(-" + t + "px)");
+      $(".wall.top", exhibition.wallsElement).css("transform", "rotateX(-90deg) translateZ(-" + t + "px)");
+      $(".wall.bottom", exhibition.wallsElement).css("transform", "rotateX(-90deg) translateZ(" + t + "px) scaleY(-1)");
+      $(".wall.back", exhibition.wallsElement).css("transform", "rotateX(-180deg) translateZ(" + t + "px) scaleY(-1)");
+      exhibition.setZoom(exhibition.zoom);
+      exhibition.setPerspective(exhibition.perspective);
     });
 
   }
   _self.updateSize();
 
-  // Show Room
-  _self.showRoom = function(name) {
-    $.each(_self.rooms, function(index, room) {
-      room.element.css("display", "none");
+  // Show Exhibition
+  _self.showExhibition = function(name) {
+    $.each(_self.exhibitions, function(index, exhibition) {
+      exhibition.element.css("display", "none");
     });
-    var room = ($.grep(_self.rooms, function(room, index) {
-      return (room.name == name);
+    var exhibition = ($.grep(_self.exhibitions, function(exhibition, index) {
+      return (exhibition.name == name);
     }) || [null])[0];
-    room.element
+    exhibition.element
       .css("display", "block")
       .css("opacity", 1);
     _self.sideElement.css("opacity", 1);
-    return room;
+    return exhibition;
   }
 
 }

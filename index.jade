@@ -19,70 +19,47 @@ html
         section.clear-fix
           div#demo-container
             .museum.clear-fix#colours
-              .room-width
-              .room#room-red
+              .exhibition-width
+              .exhibition#a
                 .walls
-                  .wall.left.pieces
-                    .piece.hang-high
+                  .wall.left.exhibits
+                    .exhibit.hang-high
                       .blank(style="background-color: rgb(255, 0, 0)")
-                    .piece.hang-high
+                    .exhibit.hang-high
                       .blank(style="background-color: rgb(204, 0, 0)")
-                  .wall.right.pieces
-                    .piece.hang-high
+                  .wall.right.exhibits
+                    .exhibit.hang-high
                       .blank(style="background-color: rgb(153, 0, 0)")
-                    .piece.hang-high
+                    .exhibit.hang-high
                       .blank(style="background-color: rgb(102, 0, 0)")
                   .wall.top
                   .wall.bottom
-                  .wall.back.piece
-                    .piece.hang-high
+                  .wall.back.exhibit
+                    .exhibit.hang-high
                       .blank(style="background-color: rgb(51, 0, 0)")
                 .overlay
-                //- .overlay
-                //-   div.bottom
-                //-     p
-                //-       |&copy; Museum of the Future, 2014 &mdash;
-              .room#room-green
+              .exhibition#b
                 .walls
-                  .wall.left.pieces
-                    .piece.hang-high
+                  .wall.left.exhibits
+                    .exhibit.hang-high
                       .blank(style="background-color: rgb(0, 255, 0)")
-                    .piece.hang-high
+                    .exhibit.hang-high
                       .blank(style="background-color: rgb(0, 204, 0)")
-                  .wall.right.pieces
-                    .piece.hang-high
+                  .wall.right.exhibits
+                    .exhibit.hang-high
                       .blank(style="background-color: rgb(0, 153, 0)")
-                    .piece.hang-high
-                      .blank(style="background-color: rgb(0, 102, 0)")
+                    .exhibit.hang-high
+                      .blank(style="background-color: rgb(0, 153, 0)")
                   .wall.top
                   .wall.bottom
-                  .wall.back.piece
-                    .piece.hang-high
+                  .wall.back.exhibit
+                    .exhibit.hang-high
                       .blank(style="background-color: rgb(0, 51, 0)")
-                .overlay
-              .room#room-blue
-                .walls
-                  .wall.left.pieces
-                    .piece.hang-high
-                      .blank(style="background-color: rgb(0, 0, 255)")
-                    .piece.hang-high
-                      .blank(style="background-color: rgb(0, 0, 204)")
-                  .wall.right.pieces
-                    .piece.hang-high
-                      .blank(style="background-color: rgb(0, 0, 153)")
-                    .piece.hang-high
-                      .blank(style="background-color: rgb(0, 0, 102)")
-                  .wall.top
-                  .wall.bottom
-                  .wall.back.piece
-                    .piece.hang-high
-                      .blank(style="background-color: rgb(0, 0, 51)")
                 .overlay
               .side
                 .side-inner
-                  button(id="show-red-room-button").gray Show Red Room
-                  button(id="show-green-room-button").gray Show Green Room
-                  button(id="show-blue-room-button").gray Show Blue Room
+                  button(id="show-a-button").gray Show A
+                  button(id="show-b-button").gray Show B
                   p.
                     Hello, World.
       .wrapper.section-wrapper.bg-green

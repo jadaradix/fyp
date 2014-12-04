@@ -6,16 +6,16 @@
   width: 100%;
   margin-bottom: $spacing;
 
-  .room, .side {
+  .exhibition, .side {
     float: left;
     opacity: 0;
   }
 
-  .room, .room-width {
+  .exhibition, .exhibition-width {
     width: 65%;
   }
 
-  .room {
+  .exhibition {
     display: none;
     width: 65%;
     overflow: hidden;
@@ -55,8 +55,8 @@
         width: 100%;
         height: 100%;
         background-color: rgb(195, 195, 195);
-        &.piece, &.pieces {
-          .piece {
+        &.exhibit, &.exhibits {
+          .exhibit {
             box-sizing: border-box;
             padding: $spacing;
             height: 100%;
@@ -82,14 +82,14 @@
             }
           }
         }
-        &.pieces {
-          .piece {
+        &.exhibits {
+          .exhibit {
             float: left;
             width: 50%;
           }
         }
-        &.piece {
-          .piece {
+        &.exhibit {
+          .exhibit {
             img {
               width: 80%;
             }

@@ -27,17 +27,17 @@ function easyAjax(url, callback) {
 $(window).load(function() {
 
   var m = new Museum("colours");
-  function showRoomZoom(room) {
-    function loop(room) {
-      room.zoom += 0.001;
-      if (room.zoom >= 2) {
-        room.zoom = 2;
+  function showExhibitionZoom(exhibition) {
+    function loop(exhibition) {
+      exhibition.zoom += 0.001;
+      if (exhibition.zoom >= 2) {
+        exhibition.zoom = 2;
         return true;
       }
-      room.setZoom(room.zoom);
+      exhibition.setZoom(exhibition.zoom);
       return false;
     }
-    m.showRoom(room);
+    m.showExhibition(exhibition);
     // var r = m.showRoom(room);
     // r.zoom = 1;
     // r.setLoopFunction(loop);
@@ -70,22 +70,18 @@ $(window).load(function() {
     return false;
   });
 
-  $("#show-red-room-button").click(function() {
-    showRoomZoom("room-red");
+  $("#show-a-button").click(function() {
+    showExhibitionZoom("a");
   });
 
-  $("#show-green-room-button").click(function() {
-    showRoomZoom("room-green");
+  $("#show-b-button").click(function() {
+    showExhibitionZoom("b");
   });
 
-  $("#show-blue-room-button").click(function() {
-    showRoomZoom("room-blue");
-  });
+  showExhibitionZoom("a");
 
-  showRoomZoom("room-red");
-
-  easyAjax("api/museum/1", function(museum) {
-    console.log(museum);
-  });
+  // easyAjax("api/museum/1", function(museum) {
+  //   console.log(museum);
+  // });
 
 });
