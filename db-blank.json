@@ -1,12 +1,33 @@
 {
-  "museums": [
+  "containers": [
     {
       "id": 1,
-      "name": "James' Museum"
+      "name": "James' Museum",
+      "topics": [
+        "architecture",
+        "german",
+        "trains",
+        "nintendo",
+        "homebrew"
+      ]
     },
     {
       "id": 2,
-      "name": "Adam's Museum"
+      "name": "Adam's Museum",
+      "topics": [
+        "enya",
+        "node.js",
+        "arsenal",
+        "kraken",
+        "ello"
+      ]
+    }
+  ],
+  "exhibits": [
+    {
+      "name": "architecture",
+      "type": "picture",
+      "data": "http://architecture.org/picture.jpg"
     }
   ]
 }

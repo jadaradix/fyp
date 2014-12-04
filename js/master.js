@@ -84,4 +84,8 @@ $(window).load(function() {
 
   showRoomZoom("room-red");
 
+  easyAjax("api/museum/1", function(museum) {
+    console.log(museum);
+  });
+
 });

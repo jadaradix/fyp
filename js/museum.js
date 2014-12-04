@@ -101,18 +101,3 @@ function Museum(element) {
   }
 
 }
-
-// Emulate Enumeration
-var exhibitTypes = {
-  "picture": 0,
-  "video": 2,
-  "text": 1,
-};
-function Exhibit(name, type) {
-
-  var _self = this;
-
-  _self.name = (name || "Room");
-  _self.type = (type || exhibitTypes.text);
-
-}
