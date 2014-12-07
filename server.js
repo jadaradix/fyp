@@ -43,61 +43,13 @@ function getExhibitFromTopic(name, callback) {
     callback(newExhibit);
     return;
   } else {
-
     // Dummy algorithm
-
     type = "text";
-    // var Dictionary = require('./dictionary');
-    // var dict = new Dictionary({
-    //   key: "16565cdc-11d8-4a1e-9c09-da2a3393892d"
-    // });
-    // dict.define(name, function(error, result) {
-    //   data = result;
-    //   // if (error == null) {
-    //   //   data = result[0]["definition"][0]["_"];
-    //   // } else {
-    //   //   data = name + " isn't in the dictionary.";
-    //   // }
-    //   newExhibit = new exhibit.Instance(name, type, data);
-    //   db("exhibits").push(newExhibit);
-    //   db.save();
-    //   callback(newExhibit);
-    // });
-
-    var options = {
-      // url: "http://en.wikipedia.org/w/api.php?action=parse&prop=text&format=json&page=" + name,
-      // url: "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/architecture?key=",
-      // url: "http://en.wiktionary.org/w/api.php?action=parse&format=json&prop=text&page=" + name
-      method: "GET"
-    };
-    function done(data) {
-      var newExhibit = new exhibit.Instance(name, type, data);
-      db("exhibits").push(newExhibit);
-      db.save();
-      callback(newExhibit);
-    }
     var data = "Information about " + name.charAt(0).toUpperCase() + name.slice(1) + "...";
-    done(data);
-    // request(options, function(error, response, body) {
-    //   var data = "";
-    //   if (!error && response.statusCode == 200) {
-    //     // xml.parseString(JSON.parse(body)["parse"]["text"]["*"], function(error, result) {
-    //     //   data = result;
-    //     //   newExhibit = new exhibit.Instance(name, type, data);
-    //     //   done(newExhibit);
-    //     // });
-    //     // data = JSON.parse(body)["parse"]["text"]["*"];
-    //     // newExhibit = new exhibit.Instance(name, type, data);
-    //     // done(newExhibit);
-    //     // var pages = JSON.parse(body)["query"]["pages"];
-    //     // data = pages[Object.keys(pages)[0]]["revisions"][0]["*"];
-    //     // data = htmlToText.fromString();
-    //     data = name.charAt(0).toUpperCase() + name.slice(1) + " is blah.";
-    //   } else {
-    //     data = name.charAt(0).toUpperCase() + name.slice(1) + " is something not on Wikipedia. FML.";
-    //     done(data);
-    //   }
-    // });
+    var newExhibit = new exhibit.Instance(name, type, data);
+    db("exhibits").push(newExhibit);
+    db.save();
+    callback(newExhibit);
   }
 
 }
