@@ -72,6 +72,19 @@
             .blank {
               height: 100%;
             }
+            .picture {
+              img {
+                display: block;
+                width: 100%;
+              }
+            }
+            .text {
+              height: 100%;
+              padding: $spacing;
+              p {
+
+              }
+            }
             &.hang-high {
               padding-top: 15%;
               padding-bottom: 15%;
@@ -121,7 +134,9 @@
     .side-inner {
       position: relative;
       height: 320px;
-      /* background-color: blue; */
+      * {
+        color: black;
+      }
     }
   }
 

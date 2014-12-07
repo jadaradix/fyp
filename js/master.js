@@ -24,24 +24,26 @@ function easyAjax(url, callback) {
 
 }
 
+var m;
+
+function showExhibitionZoom(exhibition) {
+  function loop(exhibition) {
+    exhibition.zoom += 0.001;
+    if (exhibition.zoom >= 2) {
+      exhibition.zoom = 2;
+      return true;
+    }
+    exhibition.setZoom(exhibition.zoom);
+    return false;
+  }
+  var r = m.showExhibition(exhibition);
+  r.zoom = 1;
+  r.setLoopFunction(loop);
+}
+
 $(window).load(function() {
 
-  var m = new Museum("colours");
-  function showExhibitionZoom(exhibition) {
-    function loop(exhibition) {
-      exhibition.zoom += 0.001;
-      if (exhibition.zoom >= 2) {
-        exhibition.zoom = 2;
-        return true;
-      }
-      exhibition.setZoom(exhibition.zoom);
-      return false;
-    }
-    m.showExhibition(exhibition);
-    // var r = m.showRoom(room);
-    // r.zoom = 1;
-    // r.setLoopFunction(loop);
-  }
+  m = new Museum("demo");
 
   $("[data-scroll-to]").click(function(jEvent) {
     var el = $("#" + $(jEvent.target).attr("data-scroll-to"));
@@ -70,18 +72,33 @@ $(window).load(function() {
     return false;
   });
 
-  $("#show-a-button").click(function() {
-    showExhibitionZoom("a");
+  showExhibitionZoom("exhibit-1");
+
+  easyAjax("api/museum/1", function(museum) {
+    var els = $("#exhibit-1 .exhibit.fill");
+    console.log("Museum:");
+    console.log(museum);
+    console.log("Exhibitions:");
+    console.log(museum.exhibitions);
+    var colours = [
+      "#EC0B6D",
+      "#F47920",
+      "#FCB940",
+      "#74B643",
+      "#2EA995"
+    ];
+    var exhibition = museum.exhibitions[0];
+    $.each(els, function(index, el) {
+      var exhibit = exhibition.exhibits[index];
+      var colour = colours[index];
+      var html = "";
+      if (exhibit.type == "text") {
+        html = "<div class=\"text\" style=\"background-color: " + colour + ";\"><h1>" + exhibit.name + "</h1><p>" + exhibit.data + "</p></div>";
+      } else if (exhibit.type == "picture") {
+        html = "<div class=\"picture\"><img src=\"" + exhibit.data + "\" alt=\"" + exhibit.name + "\"></div>";
+      }
+      $(el).html(html);
+    })
   });
-
-  $("#show-b-button").click(function() {
-    showExhibitionZoom("b");
-  });
-
-  showExhibitionZoom("a");
-
-  // easyAjax("api/museum/1", function(museum) {
-  //   console.log(museum);
-  // });
 
 });
