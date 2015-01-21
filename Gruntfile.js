@@ -6,42 +6,25 @@ module.exports = function(grunt) {
 
     shell: {
       clean: {
-        command: [
-          'rm -rf build',
-          'mkdir -p build'
-        ].join("&&"),
-      },
-      generic: {
-        command: [
-          'mkdir -p build',
-          'for i in $(find * -type d -maxdepth 0 | grep -viw "node_modules\\|build\\|sass\\|private"); do rm -rf build/$i && cp -rf $i build/$i; done',
-        ].join("&&")
-      },
-      markup: {
-        command: [
-          '$(npm bin)/jade index.jade 404.jade 403.jade && mv *.html build',
-        ].join("&&")
+        command: 'rm -rf css'
       },
       sass: {
         command: [
-          'mkdir -p build/css',
+          'mkdir -p css',
           'cd sass',
-          'for i in $(find *.scss -maxdepth 0); do sass $i:../build/css/$i.css --cache-location "cache" --style compressed ; done',
+          'for i in $(find *.scss -maxdepth 0); do sass $i:../css/$i.css --cache-location "cache" --style compressed ; done',
           'cd ..'
         ].join("&&")
       },
       js: {
         command: [
-          'rm -rf build/js && cp -rf js build/js',
-          // 'cp $(npm root)/angular/angular.min.js build/js/angular.min.js',
-          // 'cp $(npm root)/angular/angular.min.js.map build/js/angular.min.js.map',
-          'cp $(npm root)/jquery/dist/jquery.min.js build/js/jquery.min.js',
-          'cp $(npm root)/jquery/dist/jquery.min.map build/js/jquery.min.map',
-          'cp $(npm root)/async/lib/async.js build/js/async.js'
+          'cp $(npm root)/jquery/dist/jquery.min.js js/jquery.min.js',
+          'cp $(npm root)/jquery/dist/jquery.min.map js/jquery.min.map',
+          'cp $(npm root)/async/lib/async.js js/async.js'
         ].join("&&")
       },
       server: {
-        command: "clear && node server.js"
+        command: "npm start"
       }
     }
 
@@ -50,18 +33,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('default', [
-    'shell:generic',
-    'shell:markup',
+    'shell:clean',
     'shell:sass',
     'shell:js'
   ]);
 
   grunt.registerTask('clean', [
     'shell:clean'
-  ]);
-
-  grunt.registerTask('markup', [
-    'shell:markup'
   ]);
 
   grunt.registerTask('sass', [

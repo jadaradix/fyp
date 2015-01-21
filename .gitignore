@@ -1,7 +1,9 @@
-node_modules/
-sass/cache/
-build/
-private/
+node_modules
+css
+sass/cache
+js/copied
+private
 db.json
 .DS_Store
 Thumbs.db
+npm-debug.log
