@@ -50,8 +50,4 @@ module.exports = function(grunt) {
     'shell:js'
   ]);
 
-  grunt.registerTask('server', [
-    'shell:server'
-  ]);
-
 };
