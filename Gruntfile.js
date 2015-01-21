@@ -18,9 +18,9 @@ module.exports = function(grunt) {
       },
       js: {
         command: [
-          'cp $(npm root)/jquery/dist/jquery.min.js js/jquery.min.js',
-          'cp $(npm root)/jquery/dist/jquery.min.map js/jquery.min.map',
-          'cp $(npm root)/async/lib/async.js js/async.js'
+          'cp $(npm root)/jquery/dist/jquery.min.js js/copied/jquery.min.js',
+          'cp $(npm root)/jquery/dist/jquery.min.map js/copied/jquery.min.map',
+          'cp $(npm root)/async/lib/async.js js/copied/async.js'
         ].join("&&")
       },
       server: {
