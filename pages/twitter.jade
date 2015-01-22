@@ -9,9 +9,15 @@ html
       .wrapper.section-wrapper.feature.bg-blue
         section.clear-fix
           div
-            h1 Twitter
+            h1 What's your Twitter?
+            form.feature
+              input(type="text", value="@jadaradix")#twitter
+              button
+                span Process Tweets
+                span.right.fa.fa-caret-right
             p.
-              Hi there!
+              (Make sure your account is public. We store your 200 most recent tweets and delete them as soon as we're done.)
     include partials/_foot-body.jade
     script(src="js/copied/jquery.min.js")
     script(src="js/copied/async.js")
+    script(src="js/twitter.js")

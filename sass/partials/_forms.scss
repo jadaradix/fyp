@@ -1,3 +1,19 @@
+form {
+}
+
+form.feature {
+  padding-top: $spacing;
+  padding-bottom: $spacing;
+}
+
+input[type="text"], input[type="password"] {
+  padding: $spacing / 2;
+  font-size: 150%;
+  border: 2px solid $gray;
+  border-radius: $radius;
+  color: $gray;
+}
+
 input[type="submit"],
 input[type="button"],
 button,

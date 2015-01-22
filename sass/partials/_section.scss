@@ -39,7 +39,7 @@ section {
         text-transform: uppercase;
         letter-spacing: 2px;
       }
-      > button, a.button {
+      button, .button {
         margin: ($spacing * 2) auto 0 auto;
       }
     }
@@ -52,7 +52,7 @@ section {
       p {
         width: 65%;
       }
-      > button, a.button {
+      button, .button {
         width: 50%;
       }
     }
@@ -77,7 +77,7 @@ section {
   }
   .section-wrapper.feature section {
     > div {
-      > button, a.button {
+      button, .button {
         width: 30%;
       }
     }
