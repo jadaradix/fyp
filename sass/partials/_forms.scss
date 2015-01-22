@@ -1,4 +1,7 @@
-input, button {
+input[type="submit"],
+input[type="button"],
+button,
+a.button {
   display: block;
   width: 100%;
   margin-bottom: $spacing / 2;
