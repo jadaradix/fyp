@@ -10,17 +10,17 @@ html
         section.clear-fix
           div
             h1 What's your Twitter?
-            form.feature
-              input(type="text", value="@jadaradix")#twitter
+            form.feature#twitter-form
+              input(type="text", value="@jadaradix")#twitter-account
               button
                 span Fetch Tweets
                 span.right.fa.fa-caret-right
             p.
-              (Make sure your account is public! We store your 200 most recent tweets and delete them as soon as we're done.)
+              Make sure your account is public! We store your 200 most recent tweets and delete them as soon as we're done.
       .wrapper.section-wrapper.feature.bg-green
         section.clear-fix
           div
-            h1
+            h1#twitter-status
               span.fa.fa-spin.fa-spinner
               span &nbsp;&nbsp;Fetching...
             p.

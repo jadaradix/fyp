@@ -1,11 +1,20 @@
+function twitterAccountElementFocus() {
+  twitterAccountElement.focus();
+  twitterAccountElement[0].selectionStart = 1;
+  twitterAccountElement[0].selectionEnd = twitterAccountElement.val().length;
+}
+
 $(window).load(function() {
 
-  var twitter = $("#twitter");
-  twitter.focus();
-  if ("selectionStart" in twitter) {
-  }
-  twitter[0].selectionStart = 1;
-  twitter[0].selectionEnd = twitter.attr("value").length;
-  console.log("done");
+  window.twitterAccountElement = $("#twitter-account");
+  twitterAccountElementFocus();
+
+  $("#twitter-form").bind("submit", function() {
+    var twitterAccountName = twitterAccountElement.val();
+    if (twitterAccountName[0] == "@") twitterAccountName = twitterAccountName.substring(1);
+    alert(twitterAccountName);
+    twitterAccountElementFocus();
+    return false;
+  });
 
 });
