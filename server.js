@@ -148,7 +148,6 @@ function cleanTweet(tweet) {
   // _.each(words, function(word, index) {
   //   console.log(word);
   // });
-  //return
   return {
     "date": tweet.created_at,
     "text": text,
@@ -270,6 +269,17 @@ async.waterfall([
         return;
       }
 
+      //hack for offline use
+      fs.readFile("private/data.json", function(error, data) {
+        if (error) {
+          res.status(500);
+          res.send("Offline data isn't available. Sorry.");
+        } else {
+          res.send(JSON.parse(data));
+        }
+      });
+      return;
+
       async.waterfall([
 
         function(next) {
@@ -350,8 +360,10 @@ async.waterfall([
 
 
         function(passedData, next) {
-          res.send(JSON.stringify(passedData, undefined, 2));
-          // res.send(passedData);
+          //send (ugly)
+          res.send(passedData);
+          //send (pretty)
+          //res.send(JSON.stringify(passedData, undefined, 2));
         }
 
 
