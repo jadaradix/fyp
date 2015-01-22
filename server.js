@@ -253,6 +253,10 @@ async.waterfall([
       res.render("index");
     });
 
+    server.app.get("/twitter", function(req, res) {
+      res.render("twitter");
+    });
+
     server.app.get("/favicon.ico", function(req, res) {
       res.redirect(301, "static/favicon.ico");
     });
