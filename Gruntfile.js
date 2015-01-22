@@ -18,6 +18,7 @@ module.exports = function(grunt) {
       },
       js: {
         command: [
+          'mkdir -p js/copied',
           'cp $(npm root)/jquery/dist/jquery.min.js js/copied/jquery.min.js',
           'cp $(npm root)/jquery/dist/jquery.min.map js/copied/jquery.min.map',
           'cp $(npm root)/async/lib/async.js js/copied/async.js'
