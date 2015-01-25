@@ -1,7 +1,7 @@
 function wordWork(word) {
   var startChars = "";
   var endChars = "";
-  var okChars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  var okChars = "abcdefghijklmnopqrstuvwxyz0123456789#";
   var i = 0;
   while (i < word.length) {
     if(_s.contains(okChars, word[i])) {
@@ -27,7 +27,7 @@ function wordWork(word) {
   }
 }
 
-function cleanTweet(tweet) {
+function cleanTweet(tweet, keepOriginalText, removeMentions) {
 
   //these words are removed completely
   var badWords = [];
@@ -35,10 +35,9 @@ function cleanTweet(tweet) {
   var replacementWords = [
     // ["this", "that"]
   ];
-  //mentions configuration
-  var removeMentions = false;
   //go
   var text = tweet.text;
+  var originalText = text;
   //unescape HTML (&lt;3 becomes <3, etc.)
   //(risky! outputs bad JSON!?)
   //text = _s.unescapeHTML(text);
@@ -85,15 +84,11 @@ function cleanTweet(tweet) {
       increaseMentionsBreakPoint = false;
     }
     //remove emphasis
-    //to do: use loop back function to remove rubbish at the end
     if (_s.startsWith(word, "*")) {
       word = word.substring(1);
     }
     if (_s.endsWith(word, "*")) {
       word = word.substring(0, word.length - 1);
-    }
-    if (word[word.length - 2] == "*") {
-      word = word.substring(0, word.length - 2);
     }
     //elegantly handle hashtags
     if (_s.startsWith(word, "#")) {
@@ -130,10 +125,13 @@ function cleanTweet(tweet) {
     return word;
   });
   //work with the mentions break point
-  if (mentionsBreakPoint == 1) {
-    words[0] += ",";
-  } else if (mentionsBreakPoint > 1) {
-    words.splice(mentionsBreakPoint, 0, "-");
+  var i = 0;
+  while (i < mentionsBreakPoint - 1) {
+    words[i] += ",";
+    i++;
+  }
+  if (mentionsBreakPoint > 0) {
+    words.splice(mentionsBreakPoint, 0, "-");  
   }
   //no words (probably just posted a picture) - not useful
   if (!words.length) return null;
@@ -142,21 +140,19 @@ function cleanTweet(tweet) {
   //always end in a full stop (or an exclamation mark)
   var textEnd = text[text.length - 1];
   if (!((textEnd == ".") || (textEnd == "!"))) text += ".";
-  //debug
-  // console.log("Sentence: " + text);
-  // console.log("Breakpoint: " + mentionsBreakPoint);
-  // _.each(words, function(word, index) {
-  //   console.log(word);
+  //return
+  var r = {};
+  r.date = tweet.created_at;
+  if (keepOriginalText) {
+    r.originalText = originalText;
+  }
+  r.text = text;
+  r.isRetweet = isRetweet;
+  // r.hashtags = _.map(tweet.entities.hashtags, function(hashtag) {
+  //   return hashtag.text;
   // });
-  return {
-    "date": tweet.created_at,
-    "text": text,
-    "is_retweet": isRetweet,
-    // "hashtags": _.map(tweet.entities.hashtags, function(hashtag) {
-    //   return hashtag.text;
-    // }),
-    // "reply_to": tweet.in_reply_to_screen_name
-  };
+  // r.replyTo = tweet.in_reply_to_screen_name;
+  return r;
 }
 
 // "Standard" Modules
@@ -203,6 +199,12 @@ async.waterfall([
     server.jsonError = function(text, res) {
       res.send({
         "error": text
+      });
+    };
+
+    server.jsonSuccess = function(text, res) {
+      res.send({
+        "success": text
       });
     };
 
@@ -265,6 +267,17 @@ async.waterfall([
     // BACKEND (API) ROUTES
     //
 
+    server.app.get("/api/reset", function(req, res) {
+      async.waterfall([
+        function(next) {
+          server.resetDatabase(next);
+        },
+        function(next) {
+          server.jsonSuccess("The database was reset.", res);
+        }
+      ]);
+    });
+
     server.app.get("/api/twitter/*", function(req, res) {
 
       var screenName = req.params[0];
@@ -272,17 +285,6 @@ async.waterfall([
         server.jsonError("The Twitter screen name was empty.", res);
         return;
       }
-
-      //hack for offline use
-      fs.readFile("private/data.json", function(error, data) {
-        if (error) {
-          res.status(500);
-          res.send("Offline data isn't available. Sorry.");
-        } else {
-          res.send(JSON.parse(data));
-        }
-      });
-      return;
 
       async.waterfall([
 
@@ -309,13 +311,15 @@ async.waterfall([
                 return;
               }
               var newData = {
-                "account": {
-                  "screenName": data.screen_name,
-                  "name": data.name,
-                  "location": data.location,
-                  "description": data.description,
-                  "language": data.lang,
-                  "picture": data.profile_image_url
+                "twitter": {
+                  "account": {
+                    "screenName": data.screen_name,
+                    "name": data.name,
+                    "location": data.location,
+                    "description": data.description,
+                    "language": data.lang,
+                    "picture": data.profile_image_url
+                  }
                 }
               };
               next(null, newData);
@@ -350,12 +354,15 @@ async.waterfall([
                 return;
               }
               var newData = passedData;
-              var tweets = _.map(data, cleanTweet);
+              var tweets = _.map(data, function(tweet) {
+                tweet = cleanTweet(tweet, true, false);
+                return tweet;
+              });
               //some tweets may have been removed (annulled)
               tweets = _.filter(tweets, function(tweet) {
                 return (tweet != null);
               });
-              newData.tweets = tweets;
+              newData["twitter"]["tweets"] = tweets;
               next(null, newData);
             }
           );
@@ -364,10 +371,10 @@ async.waterfall([
 
 
         function(passedData, next) {
-          //send (ugly)
-          res.send(passedData);
-          //send (pretty)
           //res.send(JSON.stringify(passedData, undefined, 2));
+          server.db("museums").push(passedData);
+          server.db.save();
+          res.send(passedData);
         }
 
 
