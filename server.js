@@ -1,160 +1,3 @@
-function wordWork(word) {
-  var startChars = "";
-  var endChars = "";
-  var okChars = "abcdefghijklmnopqrstuvwxyz0123456789#";
-  var i = 0;
-  while (i < word.length) {
-    if(_s.contains(okChars, word[i])) {
-      startChars = word.substring(0, i);
-      word = word.substring(i);
-      break;
-    }
-    i++;
-  }
-  var i = word.length - 1;
-  while (i >= 0) {
-    if(_s.contains(okChars, word[i])) {
-      endChars = word.substring(i + 1);
-      word = word.substring(0, i + 1);
-      break;
-    }
-    i--;
-  }
-  return {
-    "start": startChars,
-    "main": word,
-    "end": endChars
-  }
-}
-
-function cleanTweet(tweet, keepOriginalText, removeMentions) {
-
-  //these words are removed completely
-  var badWords = [];
-  //these words are replaced
-  var replacementWords = [
-    // ["this", "that"]
-  ];
-  //go
-  var text = tweet.text;
-  var originalText = text;
-  //unescape HTML (&lt;3 becomes <3, etc.)
-  //(risky! outputs bad JSON!?)
-  //text = _s.unescapeHTML(text);
-  //split
-  var words = text.split(" ");
-  var isRetweet = false;
-  //retweet tweak: we don't care whom they're retweeting
-  //but we do care that it's a retweet
-  if (words[0] == "RT") {
-    words.shift(); //RT
-    words.shift(); //@xyz
-    isRetweet = true;
-  }
-  //remove .@ colloquialism
-  if (_s.startsWith(words[0], ".@")) words[0] = words[0].substring(1);
-  //initial filters
-  words = _.filter(words, function(word) {
-    //remove blanks
-    if (!word.length) return false;
-    //remove links
-    if (_s.startsWith(word, "http")) return false;
-    //remove emoticons
-    if (_s.startsWith(word, ":") || _s.startsWith(word, ";")) return false;
-    //remove bad words
-    if (_.contains(badWords, word)) return false;
-    //remove mentions?
-    if (removeMentions && _s.startsWith(word, "@")) return false;
-    return true;
-  });
-  //map mentions
-  var mentions = _.map(tweet.entities.user_mentions, function(mention) {
-    return {
-      "screen_name": mention.screen_name,
-      "name": mention.name
-    }
-  });
-  //find mentions break point (where the mentions from the start, stop)
-  var increaseMentionsBreakPoint = true;
-  var mentionsBreakPoint = 0;
-  words = _.map(words, function(word, index) {
-    if (increaseMentionsBreakPoint && _s.startsWith(word, "@")) {
-      mentionsBreakPoint++;
-    } else {
-      increaseMentionsBreakPoint = false;
-    }
-    //remove emphasis
-    if (_s.startsWith(word, "*")) {
-      word = word.substring(1);
-    }
-    if (_s.endsWith(word, "*")) {
-      word = word.substring(0, word.length - 1);
-    }
-    //elegantly handle hashtags
-    if (_s.startsWith(word, "#")) {
-      //remove hash
-      word = word.substring(1);
-      //humanise
-      word = _s.humanize(word);
-      //indicate it was a hashtag
-      word = "(" + word + ")";
-    }
-    //replace words
-    _.each(replacementWords, function(replacementWord) {
-      if (word == replacementWord[0]) word = replacementWord[1];
-    });
-    //change mention screen name to name
-    if (_s.startsWith(word, "@")) {
-      //remove @
-      word = word.substring(1);
-      //to do: use loop back function to remove rubbish at the end
-      //hack to remove punctuation at the end
-      var wordEnd = word[word.length - 1];
-      if (
-        wordEnd == "." ||
-        wordEnd == "!" ||
-        wordEnd == "," ||
-        wordEnd == ":" ||
-        wordEnd == ";"
-      ) word = word.substring(0, word.length - 1);
-      var mention = _.find(mentions, function(mention) {
-        return (word == mention.screen_name);
-      });
-      word = (mention ? mention.name : word);
-    }
-    return word;
-  });
-  //work with the mentions break point
-  var i = 0;
-  while (i < mentionsBreakPoint - 1) {
-    words[i] += ",";
-    i++;
-  }
-  if (mentionsBreakPoint > 0) {
-    words.splice(mentionsBreakPoint, 0, "-");  
-  }
-  //no words (probably just posted a picture) - not useful
-  if (!words.length) return null;
-  //rebuild from words
-  var text = words.join(" ");
-  //always end in a full stop (or an exclamation mark)
-  var textEnd = text[text.length - 1];
-  if (!((textEnd == ".") || (textEnd == "!"))) text += ".";
-  //return
-  var r = {};
-  r.date = tweet.created_at;
-  if (keepOriginalText) {
-    r.originalText = originalText;
-  }
-  r.text = text;
-  r.isRetweet = isRetweet;
-  // r.hashtags = _.map(tweet.entities.hashtags, function(hashtag) {
-  //   return hashtag.text;
-  // });
-  // r.replyTo = tweet.in_reply_to_screen_name;
-  return r;
-}
-
 // "Standard" Modules
 var low = require("lowdb");
 var url = require("url");
@@ -165,11 +8,13 @@ var _s = require("underscore.string");
 var request = require('request');
 var twitter = require('twitter');
 
-// "Custom" Modules/Models
-var serverSideMuseum = require("./models-server/museum.js");
-var exhibition = require("./models/exhibition.js");
-var exhibit = require("./models/exhibit.js");
+// "Custom" Modules
 var yans = require("yans");
+var twinglish = require("./twinglish.js");
+var twinglishInstance = new twinglish.Instance();
+
+// "Custom" Models
+//...
 
 var twitterClient;
 var server;
@@ -267,6 +112,15 @@ async.waterfall([
     // BACKEND (API) ROUTES
     //
 
+    server.app.get("/api/test", function(req, res) {
+      var data = JSON.parse(fs.readFileSync("private/data.json").toString());
+      var tweets = _.map(data["twitter"]["tweets"], twinglishInstance.cleanTweet);
+      tweets = _.filter(tweets, function(tweet) {
+        return (tweet != null);
+      });
+      res.send(JSON.stringify(tweets, undefined, 2));
+    });
+
     server.app.get("/api/reset", function(req, res) {
       async.waterfall([
         function(next) {
@@ -353,17 +207,16 @@ async.waterfall([
                 server.jsonError(errorText, res);
                 return;
               }
-              var newData = passedData;
-              var tweets = _.map(data, function(tweet) {
-                tweet = cleanTweet(tweet, true, false);
-                return tweet;
-              });
+              // var tweets = _.map(data, function(tweet) {
+              //   return twinglish.cleanTweet(tweet, true, false, []);
+              // });
+              var tweets = _.map(data, twinglish.cleanTweet);
               //some tweets may have been removed (annulled)
               tweets = _.filter(tweets, function(tweet) {
                 return (tweet != null);
               });
-              newData["twitter"]["tweets"] = tweets;
-              next(null, newData);
+              passedData["twitter"]["tweets"] = tweets;
+              next(null, passedData);
             }
           );
 
@@ -371,7 +224,6 @@ async.waterfall([
 
 
         function(passedData, next) {
-          //res.send(JSON.stringify(passedData, undefined, 2));
           server.db("museums").push(passedData);
           server.db.save();
           res.send(passedData);
