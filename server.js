@@ -112,15 +112,6 @@ async.waterfall([
     // BACKEND (API) ROUTES
     //
 
-    server.app.get("/api/test", function(req, res) {
-      var data = JSON.parse(fs.readFileSync("private/data.json").toString());
-      var tweets = _.map(data["twitter"]["tweets"], twinglishInstance.cleanTweet);
-      tweets = _.filter(tweets, function(tweet) {
-        return (tweet != null);
-      });
-      res.send(JSON.stringify(tweets, undefined, 2));
-    });
-
     server.app.get("/api/reset", function(req, res) {
       async.waterfall([
         function(next) {
@@ -208,9 +199,9 @@ async.waterfall([
                 return;
               }
               // var tweets = _.map(data, function(tweet) {
-              //   return twinglish.cleanTweet(tweet, true, false, []);
+              //   return twinglishInstance.cleanTweet(tweet, true, false, []);
               // });
-              var tweets = _.map(data, twinglish.cleanTweet);
+              var tweets = _.map(data, twinglishInstance.cleanTweet);
               //some tweets may have been removed (annulled)
               tweets = _.filter(tweets, function(tweet) {
                 return (tweet != null);
@@ -226,7 +217,8 @@ async.waterfall([
         function(passedData, next) {
           server.db("museums").push(passedData);
           server.db.save();
-          res.send(passedData);
+          res.send(JSON.stringify(passedData, undefined, 2));
+          // res.send(passedData);
         }
 
 
