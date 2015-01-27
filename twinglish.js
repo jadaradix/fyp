@@ -38,11 +38,7 @@ function twinglish() {
     }
     return {
       "start": startChars,
-      "main": _s.clean(
-        word
-          .replace(/\n/g, "")
-          .replace(/\r/g, "")
-        ),
+      "main": _s.clean(word),
       "end": endChars
     }
   }
@@ -68,7 +64,11 @@ function twinglish() {
     });
 
     //words
-    var words = tweet.text.split(" ");
+    var words = tweet.text
+      .replace(/\n/gi, " ")
+      .replace(/\r/gi, " ")
+      .replace(/\t/gi, " ")
+      .split(" ");
 
     //remove rt: we don't care whom they're retweeting
     //but we do care that it's a retweet

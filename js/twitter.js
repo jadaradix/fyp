@@ -17,10 +17,14 @@ $(window).load(function() {
       if (!data) return;
       data = JSON.parse(data);
       var tweetObjects = data.twitter.tweets;
-      var prose = $.map(tweetObjects, function(tweetObject) {
-        return tweetObject.text;
-      }).reverse().join(" ");
-      console.log(prose);
+      var csvTexts = $.map(tweetObjects, function(tweetObject) {
+        return tweetObject.text.replace(/,/g, " ");
+      }).reverse();
+      var csv = "";
+      $.each(csvTexts, function(index, csvText) {
+        csv += index.toString() + "," + csvText + "\n";
+      });
+      console.log(csv);
       twitterAccountElementFocus();
     });
     return false;
