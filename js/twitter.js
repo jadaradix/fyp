@@ -12,8 +12,17 @@ $(window).load(function() {
   $("#twitter-form").bind("submit", function() {
     var twitterAccountName = twitterAccountElement.val();
     if (twitterAccountName[0] == "@") twitterAccountName = twitterAccountName.substring(1);
-    alert(twitterAccountName);
-    twitterAccountElementFocus();
+
+    easyAjax("api/twitter/" + twitterAccountName, function(data) {
+      if (!data) return;
+      data = JSON.parse(data);
+      var tweetObjects = data.twitter.tweets;
+      var prose = $.map(tweetObjects, function(tweetObject) {
+        return tweetObject.text;
+      }).reverse().join(" ");
+      console.log(prose);
+      twitterAccountElementFocus();
+    });
     return false;
   });
 

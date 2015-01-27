@@ -38,7 +38,11 @@ function twinglish() {
     }
     return {
       "start": startChars,
-      "main": word,
+      "main": _s.clean(
+        word
+          .replace(/\n/g, "")
+          .replace(/\r/g, "")
+        ),
       "end": endChars
     }
   }
@@ -87,7 +91,6 @@ function twinglish() {
         var tOkChars = _self.okChars.concat(["-", "="]);
         if (!(_s.contains(tOkChars, wordObject.main.toLowerCase()))) {
           if (wordObjects[index - 1]) wordObjects[index - 1].main += wordObject.main;
-          console.log(wordObject.main);
           wordObject.main = "";
         }
       }
