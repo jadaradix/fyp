@@ -54,3 +54,9 @@ function dScrollTop() {
     "swing"
   );
 }
+
+function keepSizeRatio(jEl, ratio) {
+  var w = jEl.width();
+  console.log(w);
+  jEl.height(w * ratio);
+}

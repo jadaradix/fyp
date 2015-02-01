@@ -11,7 +11,7 @@ var twitter = require('twitter');
 // Custom Modules
 var yans = require("./node_modules-custom/yans");
 var twinglish = require("./node_modules-custom/twinglish.js");
-var twinglishInstance = new twinglish.Instance();
+var twetrics = require("./node_modules-custom/twetrics.js");
 var csv = require("./node_modules-custom/csv.js");
 
 var twitterClient;
@@ -206,13 +206,24 @@ async.waterfall([
                 server.jsonError(errorText, res);
                 return;
               }
-              var tweets = _.map(data, twinglishInstance.cleanTweet);
+              var tweets = _.map(data, twinglish.cleanTweet);
               //some tweets may have been removed (annulled)
               passedData["twitter"]["tweets"] = tweets;
               next(null, passedData);
             }
           );
 
+        },
+
+
+        function(passedData, next) {
+          if ("metrics" in req.query) {
+            passedData["metrics"] = _.map(twetrics.metrics, function(metric) {
+              metric.method(passedData["twitter"]["tweets"]);
+              return metric;
+            });
+          }
+          next(null, passedData);
         },
 
 

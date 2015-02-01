@@ -1,14 +1,77 @@
 @import "partials/_settings.scss";
 @import "partials/_colors.scss";
 
-#processing {
-  
-  > canvas {
+#processing-wrapper {
+  > section {
+    padding-top: 0;
+    padding-bottom: 0;
+    > div {
+      margin-top: $spacing;
+      margin-bottom: $spacing;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}
 
+#processing {
+
+  position: relative;
+  font-family: "Consolas", "Courier New";
+  // background-color: green;
+
+  > * {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   > div {
-
+    display: none;
+    width: 100%;
+    position: absolute;
+    // background-color: rgba(0, 0, 255, 0.5);
+    padding: 0 ($spacing * 2) 0 ($spacing * 2);
+    p {
+      position: relative;
+      width: 70%;
+      height: 100%;
+      margin: 0 auto 0 auto;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 24px;
+      background-color: transparentize(black, 0.25);
+      color: $green;
+      border-style: solid;
+      border-color: $green;
+      border-width: 2px;
+      span {
+        position: absolute;
+        top: 50%;
+        left: 0; bottom: 0; right: 0;
+        margin: auto;
+        margin-top: -0.5em;
+      }
+    }
+  }
+  
+  > canvas {
+    display: none;
+    width: 100%;
+    background-color: black;
+    color: $green;
   }
 
+}
+
+@media only screen and (min-width: $r-width-2) {
+  #processing {
+    > div p {
+      font-size: 32px;
+      border-width: 4px;
+    }
+    > canvas {
+      width: 70%;
+    }
+  }
 }

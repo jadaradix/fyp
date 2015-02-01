@@ -6,14 +6,17 @@ html(data-twitter=twitter)
   body
     include partials/_head-body.jade
     main
-      .wrapper.section-wrapper.feature.bg-black
+      .wrapper.section-wrapper.feature.bg-black#processing-wrapper
         section.clear-fix
           div
             div#processing
-              canvas
               div
+                p
+                  span.
+                    Processing...
+              canvas(width="640", height="480")
 
-      .wrapper.section-wrapper.feature.bg-blue
+      .wrapper.section-wrapper.feature.bg-gray
         section.clear-fix
           div
             h1#data-extraction.
