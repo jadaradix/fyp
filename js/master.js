@@ -23,3 +23,25 @@ function easyAjax(url, callback) {
   });
 
 }
+
+function doScrollTo(what) {
+  var el = document.getElementById(what);
+  if (!el) return;
+  el = $(el);
+  async.waterfall([
+    function(next) {
+      $(".section-wrapper.hide").css("display", "none");
+      el.css("display", "block");
+      next();
+    },
+    function(next) {
+      var body = $("body");
+      var scrollTop = el.offset().top;
+      body.animate(
+        { scrollTop: scrollTop },
+        500,
+        "swing"
+      );
+    }
+  ]);
+}

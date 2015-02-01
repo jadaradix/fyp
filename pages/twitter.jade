@@ -17,7 +17,7 @@ html
                 span.right.fa.fa-caret-right
             p.
               Make sure your account is public! We store your 200 most recent tweets and delete them as soon as we're done.
-      .wrapper.section-wrapper.feature.bg-green
+      .wrapper.section-wrapper.feature.bg-gray.hide#fetching
         section.clear-fix
           div
             h1#twitter-status
@@ -25,6 +25,22 @@ html
               span &nbsp;&nbsp;Fetching...
             p.
               This only takes a second, honest.
+      .wrapper.section-wrapper.feature.bg-green.hide#fetching-ok
+        section.clear-fix
+          div
+            h1#twitter-status
+              span.fa.fa-thumbs-o-up
+              span &nbsp;&nbsp;All Fetched!
+            p.
+              Redirecting. Just a second...
+      .wrapper.section-wrapper.feature.bg-red.hide#fetching-error
+        section.clear-fix
+          div
+            h1#twitter-status
+              span.fa.fa-warning
+              span &nbsp;&nbsp;Hmm...
+            p.
+              This isn't good news.
     include partials/_foot-body.jade
     script(src="js/copied/jquery.min.js")
     script(src="js/copied/async.js")

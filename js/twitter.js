@@ -13,12 +13,18 @@ $(window).load(function() {
     var twitterAccountName = twitterAccountElement.val();
     if (twitterAccountName[0] == "@") twitterAccountName = twitterAccountName.substring(1);
 
-    easyAjax("api/twitter/" + twitterAccountName, function(data) {
-      if (!data) return;
-      data = JSON.parse(data)["twitter"]["tweets"];
-      console.log(data);
-      twitterAccountElementFocus();
-    });
+    doScrollTo("fetching");
+
+    setTimeout(function() {
+      doScrollTo("fetching-error");
+    }, 3000);
+
+    // easyAjax("api/twitter/" + twitterAccountName, function(data) {
+    //   if (!data) return;
+    //   data = JSON.parse(data)["twitter"]["tweets"];
+    //   console.log(data);
+    //   twitterAccountElementFocus();
+    // });
     return false;
   });
 
