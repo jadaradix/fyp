@@ -208,6 +208,9 @@ async.waterfall([
               }
               var tweets = _.map(data, twinglish.cleanTweet);
               //some tweets may have been removed (annulled)
+              tweets = _.filter(tweets, function(tweet) {
+                return (tweet != null && tweet != undefined); //sorry
+               });
               passedData["twitter"]["tweets"] = tweets;
               next(null, passedData);
             }
