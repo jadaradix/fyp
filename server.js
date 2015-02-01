@@ -222,8 +222,7 @@ async.waterfall([
         function(passedData, next) {
           if ("metrics" in req.query) {
             passedData["metrics"] = _.map(twetrics.metrics, function(metric) {
-              metric.method(passedData["twitter"]["tweets"]);
-              return metric;
+              return metric.method(passedData["twitter"]["tweets"]);
             });
           }
           next(null, passedData);
