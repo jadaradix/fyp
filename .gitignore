@@ -6,5 +6,5 @@ private
 db.json
 .DS_Store
 Thumbs.db
-npm-debug.log
+npm-debug.log*
 twitter-credentials.json
