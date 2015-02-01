@@ -99,14 +99,33 @@ async.waterfall([
     });
 
     server.app.get("/twitter", function(req, res) {
-      res.render("twitter");
+      res.render(
+        "twitter",
+        { "twitter": "jadaradix" }
+      );
+    });
+
+    server.app.get("/twitter/*", function(req, res) {
+      res.render(
+        "twitter",
+        { "twitter": req.params[0] }
+      );
     });
 
     server.app.get("/process/*", function(req, res) {
+      var twitter = req.params[0];
+      var museums = server.db("museums");
+      var r = museums.find({
+        id: twitter
+      }).value();
+      if (!r) {
+        res.redirect(302, "../twitter/" + twitter);
+        return;
+      }
       res.render(
         "process",
         {
-          "twitter": req.params[0]
+          "twitter": twitter
         }
       );
     });
@@ -163,6 +182,7 @@ async.waterfall([
                 return;
               }
               var newData = {
+                "id": screenName,
                 "twitter": {
                   "account": {
                     "screenName": data.screen_name,
@@ -233,11 +253,16 @@ async.waterfall([
           var data;
           switch(format) {
             case "store":
-              // if(ok) {
-              //   server.jsonSuccess("The Twitter data was stored.", res);
-              // } else {
-              //   server.jsonError("The Twitter data was not stored.", res);
+              var museums = server.db("museums");
+              var r = museums.remove({
+                id: screenName
+              });
+              // if (r["__wrapped__"].length == 0) {
+              //   //did not exist in the first place
+              //   return;
               // }
+              museums.push(passedData);
+              server.db.save();
               server.jsonSuccess("The Twitter data was stored.", res);
               return;
               break;
@@ -267,6 +292,17 @@ async.waterfall([
 
 
 
+    });
+
+    server.app.get("/api/process/*", function(req, res) {
+      var museums = server.db("museums");
+      var r = museums.find({
+        id: req.params[0]
+      }).value();
+      if (!r) {
+        server.jsonError("There's no data for this screen name. Stop hacking.");
+        return;
+      }
     });
 
     //
