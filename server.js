@@ -31,11 +31,21 @@ async.waterfall([
       "staticDirectories": ["css", "fonts", "js", "static"]
     });
 
+    server.dbInit = function() {
+      var _self = this;
+      _self.db = low(
+        "db.json",
+        {
+          "autosave": false
+        }
+      );
+    }
+
     server.resetDatabase = function(callback) {
       var _self = this;
       var blankData = fs.readFileSync("db-blank.json");
       fs.writeFileSync("db.json", blankData);
-      _self.db = low("db.json");
+      _self.dbInit();
       callback();
     };
 
@@ -63,7 +73,7 @@ async.waterfall([
     if (!fs.existsSync("db.json")) {
       server.resetDatabase(next);
     } else {
-      server.db = low("db.json");
+      server.dbInit();
       next();
     }
 
@@ -117,11 +127,16 @@ async.waterfall([
       var museums = server.db("museums");
       var r = museums.find({
         id: twitter
-      }).value();
-      if (!r) {
+      });
+      var rValue = r.value();
+      if (!rValue) {
         res.redirect(302, "../twitter/" + twitter);
         return;
       }
+      r.assign({
+        "topics": []
+      });
+      server.db.save();
       res.render(
         "process",
         {
@@ -300,9 +315,10 @@ async.waterfall([
         id: req.params[0]
       }).value();
       if (!r) {
-        server.jsonError("There's no data for this screen name. Stop hacking.");
+        server.jsonError("There's no data for this screen name. Stop hacking.", res);
         return;
       }
+      res.send(r);
     });
 
     //

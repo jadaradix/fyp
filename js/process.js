@@ -4,6 +4,23 @@
     var label = $("#processing > div");
     var canvas = $("#processing > canvas");
 
+    var twitterAccountName = $("html").attr("data-twitter");
+
+    var pollTimeoutId;
+    function poll() {
+      easyAjax("api/process/" + twitterAccountName, function(data) {
+        console.log(data);
+        if ("error" in data) {
+          clearInterval(pollTimeoutId);
+          window.location = "../twitter/" + twitterAccountName;
+          return;
+        }
+        console.log(data);
+      });
+    }
+    pollTimeoutId = setInterval(poll, 5000);
+    setTimeout(poll, 0);
+
     async.waterfall([
       function(next) {
         //matrix setup

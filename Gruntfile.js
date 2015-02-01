@@ -20,7 +20,7 @@ module.exports = function(grunt) {
         ].join("&&")
       },
       server: {
-        command: "npm start"
+        command: "forever --minUptime 1000 --minUptime --spinSleepTime 1000 -m 10 server.js"
       }
     }
 
@@ -38,12 +38,16 @@ module.exports = function(grunt) {
     'shell:clean'
   ]);
 
+  grunt.registerTask('sass', [
+    'shell:sass'
+  ]);
+
   grunt.registerTask('js', [
     'shell:js'
   ]);
 
-  grunt.registerTask('sass', [
-    'shell:sass'
+  grunt.registerTask('server', [
+    'shell:server'
   ]);
 
 };

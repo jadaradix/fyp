@@ -12,14 +12,16 @@ function easyAjax(url, callback) {
 
   var ajaxRequest = $.ajax(url);
   ajaxRequest.done(function(response) {
-    if (!response['error']) {
+    if (!response["error"]) {
       ajaxSuccess(response);
     } else {
       ajaxFail(response);
     }
   });
   ajaxRequest.fail(function(response) {
-    ajaxFail("I couldn't reach '" + url + "'");
+    ajaxFail({
+      "error": "I couldn't reach '" + url + "'"
+    });
   });
 
 }
@@ -57,6 +59,5 @@ function dScrollTop() {
 
 function keepSizeRatio(jEl, ratio) {
   var w = jEl.width();
-  console.log(w);
   jEl.height(w * ratio);
 }
