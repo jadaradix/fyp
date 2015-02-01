@@ -47,7 +47,7 @@ async.waterfall([
 
     server.jsonSuccess = function(text, res) {
       res.send({
-        "success": text
+        "ok": text
       });
     };
 
@@ -107,7 +107,7 @@ async.waterfall([
       res.render(
         "process",
         {
-          "museum": req.params[0]
+          "twitter": req.params[0]
         }
       );
     });

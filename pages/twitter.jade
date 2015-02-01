@@ -20,7 +20,7 @@ html
       .wrapper.section-wrapper.feature.bg-gray.hide#fetching
         section.clear-fix
           div
-            h1#twitter-status
+            h1
               span.fa.fa-spin.fa-spinner
               span &nbsp;&nbsp;Fetching...
             p.
@@ -28,7 +28,7 @@ html
       .wrapper.section-wrapper.feature.bg-green.hide#fetching-ok
         section.clear-fix
           div
-            h1#twitter-status
+            h1
               span.fa.fa-thumbs-o-up
               span &nbsp;&nbsp;All Fetched!
             p.
@@ -36,11 +36,10 @@ html
       .wrapper.section-wrapper.feature.bg-red.hide#fetching-error
         section.clear-fix
           div
-            h1#twitter-status
+            h1
               span.fa.fa-warning
               span &nbsp;&nbsp;Hmm...
-            p.
-              This isn't good news.
+            p#twitter-error.
     include partials/_foot-body.jade
     script(src="js/copied/jquery.min.js")
     script(src="js/copied/async.js")

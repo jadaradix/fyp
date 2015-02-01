@@ -5,9 +5,9 @@ function easyAjax(url, callback) {
     callback(data);
   }
 
-  function ajaxFail(error) {
-    console.log(error);
-    callback(null);
+  function ajaxFail(data) {
+    console.log("(easyAjax->ajaxFail: %s)", data["error"]);
+    callback(data);
   }
 
   var ajaxRequest = $.ajax(url);
@@ -15,7 +15,7 @@ function easyAjax(url, callback) {
     if (!response['error']) {
       ajaxSuccess(response);
     } else {
-      ajaxFail(response['error']);
+      ajaxFail(response);
     }
   });
   ajaxRequest.fail(function(response) {
@@ -44,4 +44,13 @@ function doScrollTo(what) {
       );
     }
   ]);
+}
+
+function dScrollTop() {
+  var body = $("body");
+  body.animate(
+    { scrollTop: 0 },
+    500,
+    "swing"
+  );
 }
