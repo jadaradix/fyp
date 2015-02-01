@@ -30,13 +30,18 @@ $gray: #5D6566;
 .bg-gray { background-color: $gray; }
 .fg-gray { color: $gray; }
 
-$white: white;
-.bg-white { background-color: $white; }
-.fg-white { color: $white; }
-
 $black: black;
 .bg-black { background-color: $black; }
 .fg-black { color: $black; }
+
+$white: white;
+.bg-white {
+  background-color: $white;
+  section p {
+    color: $black !important;
+  }
+}
+.fg-white { color: $white; }
 
 $fg: $black;
 $bg: $light-gray;
