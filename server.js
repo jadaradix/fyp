@@ -103,7 +103,6 @@ async.waterfall([
     });
 
     server.app.get("/process/*", function(req, res) {
-      console.log(req);
       res.render(
         "process",
         {
@@ -221,7 +220,7 @@ async.waterfall([
 
         function(passedData, next) {
           if ("metrics" in req.query) {
-            passedData["metrics"] = _.map(twetrics.metrics, function(metric) {
+            passedData["twitter"]["metrics"] = _.map(twetrics.metrics, function(metric) {
               return metric.method(passedData["twitter"]["tweets"]);
             });
           }
@@ -233,6 +232,15 @@ async.waterfall([
           var format = (("format" in req.query) ? req.query.format : "json");
           var data;
           switch(format) {
+            case "store":
+              // if(ok) {
+              //   server.jsonSuccess("The Twitter data was stored.", res);
+              // } else {
+              //   server.jsonError("The Twitter data was not stored.", res);
+              // }
+              server.jsonSuccess("The Twitter data was stored.", res);
+              return;
+              break;
             case "json":
               data = passedData;
               break;
@@ -252,9 +260,6 @@ async.waterfall([
               break;
           }
           res.send(data);
-          // to do: improve save code...
-          // server.db("museums").push(passedData);
-          // server.db.save();
         }
 
 
