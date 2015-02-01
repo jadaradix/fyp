@@ -1,4 +1,4 @@
-// "Standard" Modules
+// NPM Modules
 var low = require("lowdb");
 var url = require("url");
 var async = require("async");
@@ -8,13 +8,11 @@ var _s = require("underscore.string");
 var request = require('request');
 var twitter = require('twitter');
 
-// "Custom" Modules
-var yans = require("yans");
-var twinglish = require("./twinglish.js");
+// Custom Modules
+var yans = require("./node_modules-custom/yans");
+var twinglish = require("./node_modules-custom/twinglish.js");
 var twinglishInstance = new twinglish.Instance();
-
-// "Custom" Models
-//...
+var csv = require("./node_modules-custom/csv.js");
 
 var twitterClient;
 var server;
@@ -208,14 +206,8 @@ async.waterfall([
                 server.jsonError(errorText, res);
                 return;
               }
-              // var tweets = _.map(data, function(tweet) {
-              //   return twinglishInstance.cleanTweet(tweet, true, false, []);
-              // });
               var tweets = _.map(data, twinglishInstance.cleanTweet);
               //some tweets may have been removed (annulled)
-              tweets = _.filter(tweets, function(tweet) {
-                return (tweet != null);
-              });
               passedData["twitter"]["tweets"] = tweets;
               next(null, passedData);
             }
@@ -225,10 +217,31 @@ async.waterfall([
 
 
         function(passedData, next) {
-          server.db("museums").push(passedData);
-          server.db.save();
-          res.send(JSON.stringify(passedData, undefined, 2));
-          // res.send(passedData);
+          var format = (("format" in req.query) ? req.query.format : "json");
+          var data;
+          switch(format) {
+            case "json":
+              data = passedData;
+              break;
+            case "prettyjson":
+              data = JSON.stringify(passedData, undefined, 2);
+              break;
+            case "csv":
+              //return only tweets
+              data = csv.fromObjects(
+                passedData["twitter"]["tweets"],
+                ["when", "text", "isRetweet"],
+                true
+              );
+              break;
+            default:
+              data = [];
+              break;
+          }
+          res.send(data);
+          // to do: improve save code...
+          // server.db("museums").push(passedData);
+          // server.db.save();
         }
 
 
