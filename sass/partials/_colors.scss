@@ -1,34 +1,26 @@
 $turquoise: #1ABC9C;
 .bg-turquoise { background-color: $turquoise; }
-.fg-turquoise { color: $turquoise; }
 
 $green: #2ECC71;
 .bg-green { background-color: $green; }
-.fg-green { color: $green; }
 
 $blue: #3498DB;
 .bg-blue { background-color: $blue; }
-.fg-blue { color: $blue; }
 
 $purple: #9B59B6;
 .bg-purple { background-color: $purple; }
-.fg-purple { color: $purple; }
 
 $navy: #34495E;
 .bg-navy { background-color: $navy; }
-.fg-navy { color: $navy; }
 
 $yellow: #F1C40F;
 .bg-yellow { background-color: $yellow; }
-.fg-yellow { color: $yellow; }
 
 $orange: #E67E22;
 .bg-orange { background-color: $orange; }
-.fg-orange { color: $orange; }
 
 $red: #E74C3C;
 .bg-red { background-color: $red; }
-.fg-red { color: $red; }
 
 $light-gray: #95A5A6;
 .bg-light-gray { background-color: $light-gray; }
@@ -42,5 +34,9 @@ $white: white;
 .bg-white { background-color: $white; }
 .fg-white { color: $white; }
 
-$fg: black;
+$black: black;
+.bg-black { background-color: $black; }
+.fg-black { color: $black; }
+
+$fg: $black;
 $bg: $light-gray;

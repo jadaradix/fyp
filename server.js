@@ -104,6 +104,16 @@ async.waterfall([
       res.render("twitter");
     });
 
+    server.app.get("/process/*", function(req, res) {
+      console.log(req);
+      res.render(
+        "process",
+        {
+          "museum": req.params[0]
+        }
+      );
+    });
+
     server.app.get("/favicon.ico", function(req, res) {
       res.redirect(301, "static/favicon.ico");
     });

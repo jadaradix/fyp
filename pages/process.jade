@@ -1,0 +1,28 @@
+- var title = "Processing Tweets..."
+doctype html
+html(data-museum-id=museum)
+  head
+    include partials/_head-head.jade
+  body
+    include partials/_head-body.jade
+    main
+      .wrapper.section-wrapper.feature.bg-black
+        section.clear-fix
+          div
+            div#processing
+              canvas
+              div
+
+      .wrapper.section-wrapper.feature.bg-blue
+        section.clear-fix
+          div
+            h1#data-extraction.
+              (Data Extraction Here)
+            p#data-fact.
+              (Data Fact Here)
+              
+    include partials/_foot-body.jade
+    script(src="js/copied/jquery.min.js")
+    script(src="js/copied/async.js")
+    script(src="js/master.js")
+    script(src="js/process.js")

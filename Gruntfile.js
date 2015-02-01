@@ -9,12 +9,7 @@ module.exports = function(grunt) {
         command: 'rm -rf css'
       },
       sass: {
-        command: [
-          'mkdir -p css',
-          'cd sass',
-          'for i in $(find *.scss -maxdepth 0); do sass $i:../css/$i.css --cache-location "cache" --style compressed ; done',
-          'cd ..'
-        ].join("&&")
+        command: 'sass --watch sass:css --cache-location "sass/cache" --style compressed'
       },
       js: {
         command: [
@@ -35,20 +30,20 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', [
     'shell:clean',
-    'shell:sass',
-    'shell:js'
+    'shell:js',
+    'shell:sass'
   ]);
 
   grunt.registerTask('clean', [
     'shell:clean'
   ]);
 
-  grunt.registerTask('sass', [
-    'shell:sass'
-  ]);
-
   grunt.registerTask('js', [
     'shell:js'
+  ]);
+
+  grunt.registerTask('sass', [
+    'shell:sass'
   ]);
 
 };
