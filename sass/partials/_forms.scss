@@ -8,7 +8,7 @@ form.feature {
 
 input[type="text"], input[type="password"] {
   padding: $spacing / 2;
-  font-size: 150%;
+  font: ($font-body-size * 1.75) $font-body;
   border: 2px solid $gray;
   border-radius: $radius;
   color: $gray;
