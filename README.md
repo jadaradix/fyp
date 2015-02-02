@@ -37,6 +37,9 @@ The easiest way to get up and running is to make an Ubuntu 14.04 droplet on Digi
     # Install dependencies
     npm install
     bower install --allow-root
+    cd node_modules-custom/yans
+    npm install
+    cd ../../
     # Built with Grunt
     grunt
     # Run server
