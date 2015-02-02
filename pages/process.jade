@@ -13,19 +13,18 @@ html(data-twitter=twitter)
               div
                 p
                   span.
-                    Processing...
+                    > Processing...
               canvas(width="640", height="480")
 
       .wrapper.section-wrapper.feature.bg-gray
         section.clear-fix
           div
-            h1#data-extraction.
-              (Data Extraction Here)
-            p#data-fact.
-              (Data Fact Here)
+            h1#data-headline.
+            p#data-subtext.
               
     include partials/_foot-body.jade
     script(src="js/copied/jquery.min.js")
     script(src="js/copied/async.js")
+    script(src="js/copied/underscore-min.js")
     script(src="js/master.js")
     script(src="js/process.js")

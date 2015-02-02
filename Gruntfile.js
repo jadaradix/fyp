@@ -14,9 +14,11 @@ module.exports = function(grunt) {
       js: {
         command: [
           'mkdir -p js/copied',
-          'cp $(npm root)/jquery/dist/jquery.min.js js/copied/jquery.min.js',
-          'cp $(npm root)/jquery/dist/jquery.min.map js/copied/jquery.min.map',
-          'cp $(npm root)/async/lib/async.js js/copied/async.js'
+          'cp bower_components/jquery/dist/jquery.min.js js/copied/jquery.min.js',
+          'cp bower_components/jquery/dist/jquery.min.map js/copied/jquery.min.map',
+          'cp bower_components/async/lib/async.js js/copied/async.js',
+          'cp bower_components/underscore/underscore-min.js js/copied/underscore-min.js',
+          'cp bower_components/underscore/underscore-min.js js/copied/underscore-min.map'
         ].join("&&")
       },
       server: {
