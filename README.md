@@ -22,8 +22,9 @@ The easiest way to get up and running is to make an Ubuntu 14.04 droplet on Digi
     apt-get install npm -y
     # Fix NPM because Debian :<
     ln -s /usr/bin/nodejs /usr/bin/node
-    # Install Grunt CLI NPM module
+    # Install global NPM modules
     npm install -g grunt-cli
+    npm install -g bower
     # The Basics
     rm -rf $REPODIR
     mkdir $REPODIR
