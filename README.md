@@ -25,6 +25,7 @@ The easiest way to get up and running is to make an Ubuntu 14.04 droplet on Digi
     # Install global NPM modules
     npm install -g grunt-cli
     npm install -g bower
+    npm install -g forever
     # The Basics
     rm -rf $REPODIR
     mkdir $REPODIR
@@ -33,8 +34,9 @@ The easiest way to get up and running is to make an Ubuntu 14.04 droplet on Digi
     git clone $REPO tmp && mv tmp/.git . && rm -rf tmp && git reset --hard
     # Install Sass
     gem install sass --no-ri --no-rdoc
-    # Install npm dependencies
+    # Install dependencies
     npm install
+    bower install --allow-root
     # Built with Grunt
     grunt
     # Run server
