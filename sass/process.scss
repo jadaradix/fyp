@@ -54,12 +54,17 @@
       }
     }
   }
-  
+
   > canvas {
     display: none;
     width: 100%;
     background-color: black;
     color: $green;
+  }
+
+  > span {
+    color: $green;
+    background-color: $red;
   }
 
 }
