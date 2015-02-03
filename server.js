@@ -132,7 +132,9 @@ async.waterfall([
       });
       var rValue = r.value();
       if (!rValue) {
-        res.redirect(302, "../twitter/" + twitter);
+        // res.send(twitter);
+        // return;
+        res.redirect(302, "/twitter/" + twitter);
         return;
       }
       r.assign({
@@ -153,7 +155,7 @@ async.waterfall([
       });
       var rValue = r.value();
       if (!rValue || (!(("topics" in rValue)) || rValue.topics.length == 0)) {
-        res.redirect(302, "../twitter/" + twitter);
+        res.redirect(302, "/twitter/" + twitter);
         return;
       }
       res.render(
@@ -163,7 +165,7 @@ async.waterfall([
     });
 
     server.app.get("/favicon.ico", function(req, res) {
-      res.redirect(301, "static/favicon.ico");
+      res.redirect(301, "/static/favicon.ico");
     });
 
     //
