@@ -17,12 +17,30 @@ html(data-twitter=twitter)
                     &gt; Processing...
               canvas(width="640", height="480")
 
-      .wrapper.section-wrapper.feature.bg-gray
+      .wrapper.section-wrapper.feature.bg-gray.hide#processing-data
         section.clear-fix
           div
             h1#data-headline.
             p#data-subtext.
-              
+
+      .wrapper.section-wrapper.feature.bg-green.hide#processing-ok
+        section.clear-fix
+          div
+            h1
+              span.fa.fa-thumbs-o-up
+              span &nbsp;&nbsp;All Processed!
+            p.
+              Redirecting. Just a second...
+
+      .wrapper.section-wrapper.feature.bg-red.hide#processing-error
+        section.clear-fix
+          div
+            h1
+              span.fa.fa-warning
+              span &nbsp;&nbsp;Hmm...
+            p.
+              This has taken too long; sorry. Redirecting...
+
     include partials/_foot-body.jade
     script(src="js/copied/jquery.min.js")
     script(src="js/copied/async.js")

@@ -108,21 +108,23 @@ async.waterfall([
       res.render("index");
     });
 
-    server.app.get("/twitter", function(req, res) {
+    server.app.get("/twitter/", function(req, res) {
+      var twitter = "jadaradix";
       res.render(
         "twitter",
-        { "twitter": "jadaradix" }
+        { "twitter": twitter }
       );
     });
 
-    server.app.get("/twitter/*", function(req, res) {
+    server.app.get("/twitter/*/", function(req, res) {
+      var twitter = req.params[0];
       res.render(
         "twitter",
-        { "twitter": req.params[0] }
+        { "twitter": twitter }
       );
     });
 
-    server.app.get("/process/*", function(req, res) {
+    server.app.get("/process/*/", function(req, res) {
       var twitter = req.params[0];
       var museums = server.db("museums");
       var r = museums.find({
@@ -139,9 +141,24 @@ async.waterfall([
       server.db.save();
       res.render(
         "process",
-        {
-          "twitter": twitter
-        }
+        { "twitter": twitter }
+      );
+    });
+
+    server.app.get("/museum/*/", function(req, res) {
+      var twitter = req.params[0];
+      var museums = server.db("museums");
+      var r = museums.find({
+        id: twitter
+      });
+      var rValue = r.value();
+      if (!rValue || (!(("topics" in rValue)) || rValue.topics.length == 0)) {
+        res.redirect(302, "../twitter/" + twitter);
+        return;
+      }
+      res.render(
+        "museum",
+        { "twitter": twitter }
       );
     });
 

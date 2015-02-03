@@ -16,14 +16,14 @@ $(window).load(function() {
 
     doScrollTo("fetching");
 
-    easyAjax("api/twitter/" + twitterAccountName + "?metrics&format=store", function(data) {
+    easyAjax("../api/twitter/" + twitterAccountName + "?metrics&format=store", function(data) {
       if (!("error" in data)) {
         doScrollTo("fetching-ok");
         setTimeout(
           function() {
-            window.location = "process/" + twitterAccountName;
+            window.location = "../process/" + twitterAccountName;
           },
-          2500
+          3000
         );
       } else {
         $("#twitter-error").html(data["error"]);

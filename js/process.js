@@ -30,13 +30,16 @@
     var pollTimeout = 5000;
     var pollTimeoutId;
     var polledTimes = 0;
-    var polledTimesLimit = 4;
+    var polledTimesLimit = 5;
+
+    doScrollTo("processing-data");
+
     function pollCleanUp() {
       clearInterval(pollTimeoutId);
       clearInterval(metricSwitchId);
     }
     function poll() {
-      easyAjax("api/process/" + twitterAccountName, function(data) {
+      easyAjax("../api/process/" + twitterAccountName, function(data) {
 
         if ("error" in data) {
           pollCleanUp();
@@ -48,10 +51,36 @@
 
         console.log("poll %d", polledTimes);
         if (polledTimes >= polledTimesLimit) {
-          pollCleanUp();
-          $("#processing > div p span").html("> Damn.");
+          //no topics timeout
           stopDrawing = true;
-          console.log("I have received results from %d polls now.", polledTimesLimit);
+          $("#processing > div p span").html("> Damn.");
+          doScrollTo("processing-error");
+          pollCleanUp();
+          setTimeout(
+            function() {
+              window.location = "../twitter/" + twitterAccountName;
+            },
+            6000
+          );
+          return;
+        }
+
+
+        //simulate topics presence
+        if (polledTimes == 2) {
+          data.topics.push({});
+        }
+
+        if (data.topics.length > 0) {
+          //topics
+          doScrollTo("processing-ok");
+          setTimeout(
+            function() {
+              window.location = "../museum/" + twitterAccountName;
+            },
+            3000
+          );
+          return;
         }
 
         //data already present - we're done
