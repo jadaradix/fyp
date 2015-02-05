@@ -1,0 +1,19 @@
+doctype html
+html(data-twitter=twitter)
+  head
+    include partials/_head-head.jade
+  body
+    include partials/_head-body.jade
+    main
+      .wrapper.section-wrapper.feature.bg-gray
+        section.clear-fix
+          div
+            h1 Topics
+            p Topics:
+            p 1, 2, 3, 4, 5
+
+    include partials/_foot-body.jade
+    script(src="js/copied/jquery.min.js")
+    script(src="js/copied/async.js")
+    script(src="js/copied/underscore-min.js")
+    script(src="js/master.js")

@@ -156,9 +156,14 @@ async.waterfall([
         res.redirect(302, "/twitter/" + twitter);
         return;
       }
+      var title = rValue.twitter.account.name;
+      title += "'" + (!_s.endsWith(title, "s") ? "s" : "") + " Museum";
       res.render(
         "museum",
-        { "twitter": twitter }
+        {
+          "twitter": twitter,
+          "title": title
+        }
       );
     });
 
