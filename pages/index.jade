@@ -18,8 +18,8 @@ html
       .wrapper.section-wrapper.bg-white
         section.clear-fix
           div
-            p.center.
-              (Example museum embed)
+            - var museumId = "example";
+            include partials/_museum-embed.jade
       .wrapper.section-wrapper.bg-green
         section.clear-fix
           div.icon-left
@@ -61,5 +61,7 @@ html
     include partials/_foot-body.jade
     script(src="js/copied/jquery.min.js")
     script(src="js/copied/async.js")
+    script(src="js/copied/underscore-min.js")
     script(src="js/master.js")
-    script(src="js/index.js")
+    script(src="js/museum.js")
+    script(src="js/museum-embed.js")

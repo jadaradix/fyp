@@ -125,15 +125,48 @@ async.waterfall([
       );
     });
 
+    server.app.get("/process/", function(req, res) {
+      if (!req.query.hasOwnProperty("name") || !req.query.hasOwnProperty("topics")) {
+        res.redirect(302, "/");
+        return;
+      }
+      var name  = _s.humanize(req.query.name) + " Museum";
+      var topics = req.query.topics.split(",");
+      var museums = server.db("museums");
+      //insert
+      function doesIdExist(id) {
+        var r = museums.find({ id: id });
+        return (r.value() ? true : false);
+      }
+      function generateId() {
+        var id = _.times(16, function(n) {
+          return _.random(0, 10);
+        }).join("");
+        return id;
+      }
+      var id = generateId();
+      while (doesIdExist(id)) {
+        var id = generateId();
+      }
+      var museum = {
+        "id": id,
+        "name": name,
+        "topics": topics
+      }
+      museums.push(museum);
+      server.db.save();
+      res.redirect(302, "/museum/" + id);
+    });
+
     server.app.get("/process/*/", function(req, res) {
-      var twitter = req.params[0];
+      var id = req.params[0];
       var museums = server.db("museums");
       var r = museums.find({
-        id: twitter
+        id: id
       });
       var rValue = r.value();
       if (!rValue) {
-        res.redirect(302, "/twitter/" + twitter);
+        res.redirect(302, "/twitter/" + id);
         return;
       }
       r.assign({
@@ -147,23 +180,21 @@ async.waterfall([
     });
 
     server.app.get("/museum/*/", function(req, res) {
-      var twitter = req.params[0];
+      var id = req.params[0];
       var museums = server.db("museums");
       var r = museums.find({
-        id: twitter
+        id: id
       });
       var rValue = r.value();
       if (!rValue || (!(("topics" in rValue)) || rValue.topics.length == 0)) {
-        res.redirect(302, "/twitter/" + twitter);
+        res.redirect(302, "/twitter/" + id);
         return;
       }
-      var title = rValue.twitter.account.name;
-      title += "'" + (!_s.endsWith(title, "s") ? "s" : "") + " Museum";
       res.render(
         "museum",
         {
-          "twitter": twitter,
-          "title": title
+          "title": rValue.name,
+          "id": id
         }
       );
     });
@@ -221,6 +252,7 @@ async.waterfall([
               }
               var newData = {
                 "id": screenName,
+                "name": title += "'" + (!_s.endsWith(screenName.toLowerCase(), "s") ? "s" : "") + " Museum",
                 "twitter": {
                   "account": {
                     "screenName": data.screen_name,

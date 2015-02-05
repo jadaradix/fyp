@@ -5,12 +5,15 @@ html(data-twitter=twitter)
   body
     include partials/_head-body.jade
     main
-      .wrapper.section-wrapper.feature.bg-gray
+      .wrapper.section-wrapper.feature.bg-blue
         section.clear-fix
           div
-            h1 Topics
-            p Topics:
-            p 1, 2, 3, 4, 5
+            h1 #{title}
+      .wrapper.section-wrapper.feature.bg-white
+        section.clear-fix
+          div
+            - var museumId = id;
+            include partials/_museum-embed.jade
     main
       .wrapper.section-wrapper.feature.bg-blue
         section.clear-fix
@@ -29,3 +32,4 @@ html(data-twitter=twitter)
     script(src="js/copied/underscore-min.js")
     script(src="js/master.js")
     script(src="js/museum.js")
+    script(src="js/museum-embed.js")
