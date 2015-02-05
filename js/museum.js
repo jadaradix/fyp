@@ -1,4 +1,15 @@
 (function($) {
+
+  $(document).ready(function() {
+
+    // var test = $("#test");
+    // console.log(test);
+    // test.bind("load", function(e) {
+    //   console.log(e);
+    // });
+
+  });
+
   $(window).ready(function() {
 
     var twitterAccountName = $("html").attr("data-twitter");
