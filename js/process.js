@@ -65,12 +65,6 @@
           return;
         }
 
-
-        //simulate topics presence
-        if (polledTimes == 2) {
-          data.topics.push({});
-        }
-
         if (data.topics.length > 0) {
           //topics
           doScrollTo("processing-ok");

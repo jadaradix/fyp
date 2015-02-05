@@ -132,8 +132,6 @@ async.waterfall([
       });
       var rValue = r.value();
       if (!rValue) {
-        // res.send(twitter);
-        // return;
         res.redirect(302, "/twitter/" + twitter);
         return;
       }
