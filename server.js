@@ -13,6 +13,7 @@ var yans = require("./node_modules-custom/yans");
 var twinglish = require("./node_modules-custom/twinglish.js");
 var twetrics = require("./node_modules-custom/twetrics.js");
 var csv = require("./node_modules-custom/csv.js");
+var dataer = require("./node_modules-custom/dataer.js");
 
 var twitterClient;
 var server;
@@ -341,6 +342,20 @@ async.waterfall([
         return;
       }
       res.send(r);
+    });
+
+    server.app.get("/api/museum/*", function(req, res) {
+      var museums = server.db("museums");
+      var r = museums.find({
+        id: req.params[0]
+      }).value();
+      if (!r) {
+        server.jsonError("There's no data for this screen name. Stop hacking.", res);
+        return;
+      }
+      var topics = r.topics;
+      topics = _.map(topics, dataer.getData);
+      res.send(topics);
     });
 
     //
