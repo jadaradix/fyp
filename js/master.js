@@ -95,8 +95,9 @@ $(window).load(function() {
     showMuseum(function() {
       doScrollTo(windowHash, true);
     });
-  } else {
-    showMuseum();
+    return;
   }
+
+  showMuseum();
 
 });

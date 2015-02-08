@@ -1,6 +1,16 @@
 @import "partials/_settings.scss";
 @import "partials/_colors.scss";
 
+.museum-width-outer {
+
+  padding: 0 $spacing 0 $spacing;
+
+  .museum-width {
+    width: 65%;
+  }
+
+}
+
 #museum {
 
   width: 100%;
@@ -11,14 +21,10 @@
     opacity: 0;
   }
 
-  .museum-width {
-    width: 65%;
-  }
-
   .exhibition {
-    display: none;
     width: 65%;
     overflow: hidden;
+    opacity: 0;
     background-color: black;
 
     .overlay, .walls {
@@ -133,7 +139,7 @@
     padding-left: $spacing;
     .side-inner {
       position: relative;
-      height: 320px;
+      // height: 320px;
       * {
         color: black;
       }

@@ -49,8 +49,7 @@ function MuseumClass() {
 
   // Set Size
   _self.updateSize = function() {
-    var w = $("> .museum-width", _self.museumElement).width();
-    console.log(w);
+    var w = $(".museum-width").width();
     var t = w / 2;
     _self.exhibitionElement.height(w);
     _self.translate = t;
@@ -66,9 +65,9 @@ function MuseumClass() {
   // Show
   _self.show = function() {
     _self.exhibitionElement
-      .css("display", "block")
       .css("opacity", 1);
-    _self.sideElement.css("opacity", 1);
+    _self.sideElement
+      .css("opacity", 1);
     _self.updateSize();
   }
 
@@ -93,18 +92,17 @@ function bootMuseum(id, callback) {
     },
     function(data, next) {
       if (!data) return;
-
+      var m = new MuseumClass();
+      next(null, m, data);
+    },
+    function(m, data, next) {
       // console.log(data);
-      // var museumEl = $("#museum");
       // var topicNames = $.map(data.topics, function(topic) {
       //   return topic.title;
       // });
-      // var topicsString = topicNames.join(", ");
-      // $("p", museumEl).html(topicsString);
-
-      var m = new MuseumClass();
       m.show();
-
+      var debouncedRedraw = _.debounce(m.updateSize, 100);
+      $(window).on('resize', debouncedRedraw);
       next();
     },
     function(next) {
