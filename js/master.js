@@ -26,15 +26,24 @@ function easyAjax(url, callback) {
 
 }
 
-function doScrollTo(what) {
+function doScrollTo(what, doScroll, doHide) {
+  var doScroll = ((doScroll == undefined) ? true : doScroll);
+  var doHide = ((doHide == undefined) ? true : doHide);
+  // console.log("2: %s", what);
+  // console.log("3:()");
+  // console.log(doScroll);
   var el = document.getElementById(what);
   if (!el) return;
   el = $(el);
   async.waterfall([
     function(next) {
-      $(".section-wrapper.hide").css("display", "none");
+      if (doHide) $(".section-wrapper.hide").css("display", "none");
       el.css("display", "block");
-      next();
+      if (doScroll) {
+        next();
+      } else {
+        return;
+      }
     },
     function(next) {
       var body = $("body");
@@ -65,6 +74,7 @@ function keepSizeRatio(jEl, ratio) {
 $(window).load(function() {
 
   $("[data-scroll-to]").click(function(jEvent) {
+    if (window.location.pathname != "/") return true;
     doScrollTo($(jEvent.target).attr("data-scroll-to"));
     return false;
   });
@@ -72,7 +82,7 @@ $(window).load(function() {
   var windowHash = window.location.hash;
   if (windowHash.length >= 2) {
     windowHash = windowHash.substring(1);
-    doScrollTo(windowHash);
+    doScrollTo(windowHash, true, false);
   }
 
 });

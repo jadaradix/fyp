@@ -151,6 +151,7 @@ async.waterfall([
       var museum = {
         "id": id,
         "name": name,
+        "isSpontaneous": true,
         "topics": topics
       }
       museums.push(museum);
@@ -253,6 +254,7 @@ async.waterfall([
               var newData = {
                 "id": screenName,
                 "name": title += "'" + (!_s.endsWith(screenName.toLowerCase(), "s") ? "s" : "") + " Museum",
+                "isSpontaneous": false,
                 "twitter": {
                   "account": {
                     "screenName": data.screen_name,
@@ -385,9 +387,11 @@ async.waterfall([
         server.jsonError("There's no data for this screen name. Stop hacking.", res);
         return;
       }
-      var topics = r.topics;
-      topics = _.map(topics, dataer.getData);
-      res.send(topics);
+      var topics = _.map(r.topics, dataer.getData);
+      res.send({
+        "isSpontaneous": (r.isSpontaneous ? true : false),
+        "topics": topics
+      });
     });
 
     //

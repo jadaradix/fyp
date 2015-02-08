@@ -9,12 +9,8 @@ html(data-twitter=twitter)
         section.clear-fix
           div
             h1 #{title}
-      .wrapper.section-wrapper.feature.bg-white
-        section.clear-fix
-          div
-            - var museumId = id;
-            include partials/_museum-embed.jade
-    main
+      - var museumId = id;
+      include partials/_museum-embed.jade
       .wrapper.section-wrapper.feature.bg-blue
         section.clear-fix
           div

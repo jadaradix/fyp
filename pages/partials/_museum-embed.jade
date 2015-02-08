@@ -1,3 +1,13 @@
-div#museum(data-museum-id=museumId)
-  p.
-    Hello, World.
+.wrapper.section-wrapper.bg-white.hide#museum-section
+  section.clear-fix
+    div
+      div#museum(data-museum-id=museumId)
+        p.
+.wrapper.section-wrapper.feature.bg-light-gray.hide#museum-error
+  section.clear-fix
+    div
+      h1
+        span.fa.fa-warning
+        span &nbsp;&nbsp;Something ain't Right.
+      p.
+        This museum couldn't be loaded. Maybe try later?

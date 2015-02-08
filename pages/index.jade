@@ -15,11 +15,8 @@ html
             a.button.bg-blue#make-a-museum(href="twitter")
               span Make my Museum
               span.right.fa.fa-caret-right
-      .wrapper.section-wrapper.bg-white
-        section.clear-fix
-          div
-            - var museumId = "example";
-            include partials/_museum-embed.jade
+      - var museumId = "example";
+      include partials/_museum-embed.jade
       .wrapper.section-wrapper.bg-green
         section.clear-fix
           div.icon-left

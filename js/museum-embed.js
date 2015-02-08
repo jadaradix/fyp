@@ -3,22 +3,29 @@
   function bootMuseum(id) {
 
 
-    console.log(id);
-
-
     async.waterfall([
       function(next) {
         easyAjax("../api/museum/" + id, function(data) {
-          // fix: might not be a twitter account...
           if ("error" in data) {
-            // window.location = "../twitter/" + id;
-            // return;
+            doScrollTo("museum-error", false, false);
+            return;
           }
           next(null, data);
         });
       },
       function(data, next) {
+        if (!data) return;
         console.log(data);
+        var museumEl = $("#museum");
+        var topicNames = $.map(data.topics, function(topic) {
+          return topic.title;
+        });
+        var topicsString = topicNames.join(", ");
+        $("p", museumEl).html(topicsString);
+        next();
+      },
+      function(next) {
+        doScrollTo("museum-section", false, false);
       }
     ]);
 
