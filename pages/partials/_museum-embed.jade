@@ -1,8 +1,26 @@
 .wrapper.section-wrapper.bg-white.hide#museum-section
   section.clear-fix
     div
-      div#museum(data-museum-id=museumId)
-        p.
+      #museum.clear-fix(data-museum-id=museumId)
+        .museum-width
+        .exhibition
+          .walls
+            .wall.left.exhibits
+              .exhibit.hang-high.fill
+              .exhibit.hang-high.fill
+            .wall.right.exhibits
+              .exhibit.hang-high.fill
+              .exhibit.hang-high.fill
+            .wall.top
+            .wall.bottom
+            .wall.back.exhibit
+              .exhibit.hang-high.fill
+          .overlay
+        .side
+          .side-inner
+            p.
+              Hello, World.
+
 .wrapper.section-wrapper.feature.bg-light-gray.hide#museum-error
   section.clear-fix
     div

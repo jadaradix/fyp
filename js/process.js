@@ -1,4 +1,4 @@
-(function($) {
+(function($, _) {
 
   $(window).ready(function() {
 

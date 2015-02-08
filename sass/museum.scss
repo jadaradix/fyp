@@ -1,7 +1,7 @@
 @import "partials/_settings.scss";
 @import "partials/_colors.scss";
 
-.museum {
+#museum {
 
   width: 100%;
   margin-bottom: $spacing;
@@ -11,7 +11,7 @@
     opacity: 0;
   }
 
-  .exhibition, .exhibition-width {
+  .museum-width {
     width: 65%;
   }
 
