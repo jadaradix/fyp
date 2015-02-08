@@ -1,4 +1,5 @@
 (function($) {
+
   $(window).ready(function() {
 
     var label = $("#processing > div");
@@ -32,8 +33,6 @@
     var polledTimes = 0;
     var polledTimesLimit = 5;
 
-    doScrollTo("processing-data");
-
     function pollCleanUp() {
       clearInterval(pollTimeoutId);
       clearInterval(metricSwitchId);
@@ -54,26 +53,39 @@
           //no topics timeout
           stopDrawing = true;
           $("#processing > div p span").html("> Damn.");
-          doScrollTo("processing-error");
-          pollCleanUp();
-          setTimeout(
-            function() {
-              window.location = "../twitter/" + twitterAccountName;
+          async.waterfall([
+            function(next) {
+              doScrollTo("processing-error", true, next);
             },
-            6000
-          );
+            function(next) {
+              pollCleanUp();
+              setTimeout(
+                function() {
+                  window.location = "../twitter/" + twitterAccountName;
+                },
+                6000
+              );
+            }
+          ]);
           return;
         }
 
         if (data.topics.length > 0) {
           //topics
-          doScrollTo("processing-ok");
-          setTimeout(
-            function() {
-              window.location = "../museum/" + twitterAccountName;
+          async.waterfall([
+            function(next) {
+              doScrollTo("processing-ok", true, next);
             },
-            3000
-          );
+            function(next) {
+              pollCleanUp();
+              setTimeout(
+                function() {
+                  window.location = "../museum/" + twitterAccountName;
+                },
+                3000
+              );
+            }
+          ]);
           return;
         }
 
@@ -135,16 +147,19 @@
           }
         ]);
 
-        if (gData.topics.length >= 1) {
-          pollCleanUp();
-          window.location = "../museum/" + twitterAccountName;
-          return;
-        }
-
       });
     }
-    pollTimeoutId = setInterval(poll, pollTimeout);
-    setTimeout(poll, 0);
+
+    async.waterfall([
+      function(next) {
+        doScrollTo("processing-data", false, next);
+      },
+      function(next) {
+        pollTimeoutId = setInterval(poll, pollTimeout);
+        setTimeout(poll, 0);
+      }
+    ]);
 
   });
+
 })($, _);
