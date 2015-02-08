@@ -283,7 +283,6 @@ async.waterfall([
               "include_rts": true
             },
             function(error, data, raw) {
-              // console.log(error);
               if (error) {
                 var errorText;
                 switch(error.statusCode) {

@@ -26,18 +26,19 @@ function easyAjax(url, callback) {
 
 }
 
-function doScrollTo(what, doScroll, doHide) {
+function doScrollTo(what, doScroll, callback) {
   var doScroll = ((doScroll == undefined) ? true : doScroll);
-  var doHide = ((doHide == undefined) ? true : doHide);
-  // console.log("2: %s", what);
-  // console.log("3:()");
-  // console.log(doScroll);
+  var doKeepMuseumSection = ((doKeepMuseumSection == undefined) ? false : doKeepMuseumSection);
   var el = document.getElementById(what);
   if (!el) return;
   el = $(el);
   async.waterfall([
     function(next) {
-      if (doHide) $(".section-wrapper.hide").css("display", "none");
+      var els = $(".section-wrapper.hide");
+      els = els.filter(function(index, lEl) {
+        return (($(lEl).attr("id") != "museum-section") && ($(lEl).attr("id") != "museum-error"));
+      });
+      els.css("display", "none");
       el.css("display", "block");
       if (doScroll) {
         next();
@@ -51,7 +52,10 @@ function doScrollTo(what, doScroll, doHide) {
       body.animate(
         { scrollTop: scrollTop },
         500,
-        "swing"
+        "swing",
+        function() {
+          if (callback) callback();
+        }
       );
     }
   ]);
@@ -73,16 +77,26 @@ function keepSizeRatio(jEl, ratio) {
 
 $(window).load(function() {
 
+  function showMuseum(callback) {
+    var museumId = $("#museum").attr("data-museum-id");
+    if (!museumId) return;
+    bootMuseum(museumId, callback);
+  }
+
   $("[data-scroll-to]").click(function(jEvent) {
     if (window.location.pathname != "/") return true;
-    doScrollTo($(jEvent.target).attr("data-scroll-to"));
+    doScrollTo($(jEvent.target).attr("data-scroll-to"), true);
     return false;
   });
 
   var windowHash = window.location.hash;
   if (windowHash.length >= 2) {
     windowHash = windowHash.substring(1);
-    doScrollTo(windowHash, true, false);
+    showMuseum(function() {
+      doScrollTo(windowHash, true);
+    });
+  } else {
+    showMuseum();
   }
 
 });
