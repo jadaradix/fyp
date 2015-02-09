@@ -4,42 +4,32 @@
 .wrapper.section-wrapper.bg-white.hide#museum-section
   section.clear-fix
     div
-      #museum-samples.hide
-        .exhibit.hang-mid.fill.museum-sample-picture
-          .picture
-            img(src="../static/wanda.jpg")
-        .exhibit.hang-high.fill.museum-sample-text
-          .text
-            p.
-              Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
+      .museum-samples.hide
+        .picture
+          img(src="../static/wanda.jpg")
+        .text
+          p.
+            Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
       #museum.clear-fix(data-museum-id=museumId)
         .exhibition
           .walls
             .wall.left.exhibits
-              .exhibit.hang-mid.fill
-                .picture
-                  img(src="../static/wanda.jpg")
-              .exhibit.hang-mid.fill
-                .picture
-                  img(src="../static/wanda.jpg")
+              .exhibit.hang-mid.fill#exhibit-1
+              .exhibit.hang-mid.fill#exhibit-2
             .wall.right.exhibits
-              .exhibit.hang-mid.fill
-                .picture
-                  img(src="../static/wanda.jpg")
-              .exhibit.hang-mid.fill
-                .picture
-                  img(src="../static/wanda.jpg")
+              .exhibit.hang-mid.fill#exhibit-3
+              .exhibit.hang-mid.fill#exhibit-4
             .wall.top
             .wall.bottom
             .wall.back.exhibit
-              .exhibit.hang-mid.fill
-                .picture
-                  img(src="../static/wanda.jpg")
+              .exhibit.hang-mid.fill#exhibit-5
           .overlay
         .side
           .side-inner
+            h1.
+              Topic
             p.
-              Hello, World.
+              ...
 
 .wrapper.section-wrapper.feature.bg-light-gray.hide#museum-error
   section.clear-fix

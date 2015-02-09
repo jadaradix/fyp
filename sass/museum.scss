@@ -21,6 +21,20 @@
     opacity: 0;
   }
 
+  .side {
+    width: 35%;
+    padding-left: $spacing;
+    .side-inner {
+      position: relative;
+      * {
+        color: black;
+      }
+      h1, h2 {
+        text-align: left;
+      }
+    }
+  }
+
   .exhibition {
     width: 65%;
     overflow: hidden;
@@ -139,15 +153,23 @@
     }
   }
 
-  .side {
-    width: 35%;
-    padding-left: $spacing;
-    .side-inner {
-      position: relative;
-      * {
-        color: black;
-      }
+}
+
+/* Responsive Bodge */
+
+@media only screen and (max-width: ($r-width-2 / 1.25)) {
+  .museum-width-outer {
+    .museum-width {
+      width: 100%;
     }
   }
-
+  #museum {
+    > .exhibition {
+      width: 100%;
+    }
+    > .side {
+      width: 100%;
+      padding: $spacing;
+    }
+  }
 }
