@@ -176,7 +176,7 @@ async.waterfall([
       server.db.save();
       res.render(
         "process",
-        { "twitter": twitter }
+        { "twitter": id }
       );
     });
 
@@ -253,7 +253,7 @@ async.waterfall([
               }
               var newData = {
                 "id": screenName,
-                "name": title += "'" + (!_s.endsWith(screenName.toLowerCase(), "s") ? "s" : "") + " Museum",
+                "name": screenName + "'" + (!_s.endsWith(screenName.toLowerCase(), "s") ? "s" : "") + " Museum",
                 "isSpontaneous": false,
                 "twitter": {
                   "account": {

@@ -48,6 +48,7 @@
     }
 
     .overlay {
+      pointer-events: none;
       background-image: url("../static/radial.png");
       background-size: 100% 100%;
       > div {
@@ -96,6 +97,7 @@
               img {
                 display: block;
                 width: 100%;
+                background-color: white;
               }
             }
             .text {

@@ -96,10 +96,20 @@ function bootMuseum(id, callback) {
       next(null, m, data);
     },
     function(m, data, next) {
-      // console.log(data);
-      // var topicNames = $.map(data.topics, function(topic) {
-      //   return topic.title;
-      // });
+      $.each(data.topics, function(index, topic) {
+        var exhibit = $("#museum #exhibit-" + (index + 1).toString());
+        var content = $(".museum-samples.picture").html();
+        exhibit.html(content);
+        var img = $("img", exhibit);
+        img.attr("src", topic.image);
+        img.attr("data-name", topic.name);
+        img.attr("data-text", topic.text);
+        img.bind("click", function(el) {
+          var elEl = $(el.currentTarget);
+          $("#museum .side-inner h1").html(elEl.attr("data-name"));
+          $("#museum .side-inner p").html(elEl.attr("data-text"));
+        });
+      });
       m.show();
       var debouncedRedraw = _.debounce(m.updateSize, 100);
       $(window).on('resize', debouncedRedraw);

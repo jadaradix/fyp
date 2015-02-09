@@ -38,7 +38,7 @@
       clearInterval(metricSwitchId);
     }
     function poll() {
-      easyAjax("../api/process/" + twitterAccountName, function(data) {
+      easyAjax("api/process/" + twitterAccountName, function(data) {
 
         if ("error" in data) {
           pollCleanUp();
@@ -63,7 +63,7 @@
                 function() {
                   window.location = "../twitter/" + twitterAccountName;
                 },
-                6000
+                3000
               );
             }
           ]);

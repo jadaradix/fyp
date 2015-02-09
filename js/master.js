@@ -30,7 +30,10 @@ function doScrollTo(what, doScroll, callback) {
   var doScroll = ((doScroll == undefined) ? true : doScroll);
   var doKeepMuseumSection = ((doKeepMuseumSection == undefined) ? false : doKeepMuseumSection);
   var el = document.getElementById(what);
-  if (!el) return;
+  if (!el) {
+    if (callback) callback();
+    return;
+  }
   el = $(el);
   async.waterfall([
     function(next) {
@@ -43,6 +46,7 @@ function doScrollTo(what, doScroll, callback) {
       if (doScroll) {
         next();
       } else {
+        if (callback) callback();
         return;
       }
     },

@@ -19,7 +19,7 @@
 
       doScrollTo("fetching");
 
-      easyAjax("../api/twitter/" + twitterAccountName + "?metrics&format=store", function(data) {
+      easyAjax("api/twitter/" + twitterAccountName + "?metrics&format=store", function(data) {
         if (!("error" in data)) {
           doScrollTo("fetching-ok");
           setTimeout(
