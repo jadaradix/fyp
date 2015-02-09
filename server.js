@@ -377,6 +377,12 @@ async.waterfall([
       res.send(r);
     });
 
+    server.app.get("/api/data/*", function(req, res) {
+      dataer.getData(req.params[0], function(data) {
+        res.send(data);
+      });
+    });
+
     server.app.get("/api/museum/*", function(req, res) {
       var museums = server.db("museums");
       var r = museums.find({
