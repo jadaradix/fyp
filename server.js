@@ -377,12 +377,6 @@ async.waterfall([
       res.send(r);
     });
 
-    server.app.get("/api/data/*", function(req, res) {
-      dataer.getData(req.params[0], function(data) {
-        res.send(data);
-      });
-    });
-
     server.app.get("/api/museum/*", function(req, res) {
       var museums = server.db("museums");
       var r = museums.find({
@@ -392,11 +386,25 @@ async.waterfall([
         server.jsonError("There's no data for this screen name. Stop hacking.", res);
         return;
       }
-      var topics = _.map(r.topics, dataer.getData);
-      res.send({
-        "isSpontaneous": (r.isSpontaneous ? true : false),
-        "topics": topics
-      });
+
+      var topicFunctions = _.map(r.topics, function(topic) {
+        return function(callback) {
+          dataer.getData(topic, function(data) {
+            callback(null, data);
+          })
+        };
+      })
+
+      async.parallel(
+        topicFunctions,
+        function(err, topics) {
+          res.send({
+            "isSpontaneous": (r.isSpontaneous ? true : false),
+            "topics": topics
+          });
+        }
+      );
+
     });
 
     //
