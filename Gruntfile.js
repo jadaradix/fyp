@@ -9,7 +9,10 @@ module.exports = function(grunt) {
         command: 'rm -rf css'
       },
       sass: {
-        command: 'sass --watch sass:css --cache-location "sass/cache" --style compressed'
+        command: 'sass --update sass:css --cache-location "sass/cache" --style compressed --sourcemap=none'
+      },
+      sasswatch: {
+        command: 'sass --watch sass:css --cache-location "sass/cache" --style compressed --sourcemap=none'
       },
       js: {
         command: [
@@ -18,7 +21,7 @@ module.exports = function(grunt) {
           'cp bower_components/jquery/dist/jquery.min.map js/copied/jquery.min.map',
           'cp bower_components/async/lib/async.js js/copied/async.js',
           'cp bower_components/underscore/underscore-min.js js/copied/underscore-min.js',
-          'cp bower_components/underscore/underscore-min.js js/copied/underscore-min.map'
+          'cp bower_components/underscore/underscore-min.map js/copied/underscore-min.map'
         ].join("&&")
       },
       server: {
@@ -40,12 +43,16 @@ module.exports = function(grunt) {
     'shell:clean'
   ]);
 
+  grunt.registerTask('js', [
+    'shell:js'
+  ]);
+
   grunt.registerTask('sass', [
     'shell:sass'
   ]);
 
-  grunt.registerTask('js', [
-    'shell:js'
+  grunt.registerTask('sasswatch', [
+    'shell:sasswatch'
   ]);
 
   grunt.registerTask('server', [
