@@ -1,3 +1,14 @@
 {
-  "museums": []
+  "museums": [
+    {
+      "id": "example",
+      "topics": [
+        "The Internet",
+        "Nintendo DS",
+        "The Stranglers",
+        "Haiti",
+        "The Lake District"
+      ]
+    }
+  ]
 }

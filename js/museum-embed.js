@@ -110,6 +110,7 @@ function bootMuseum(id, callback) {
           $("#museum .side-inner p").html(elEl.attr("data-text"));
         });
       });
+      $("#exhibit-1 img").click();
       m.show();
       var debouncedRedraw = _.debounce(m.updateSize, 100);
       $(window).on('resize', debouncedRedraw);
