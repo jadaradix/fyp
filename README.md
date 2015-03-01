@@ -9,7 +9,6 @@ The easiest way to get up and running is to make an Ubuntu 14.04 droplet on Digi
 
     REPO=https://github.com/jadaradix/fyp.git
     REPODIR=fyp
-    BUILDNAME=build
     
     # Freshen Up
     sudo apt-get update
