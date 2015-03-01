@@ -9,7 +9,6 @@ The easiest way to get up and running is to make an Ubuntu 14.04 droplet on Digi
 
     REPO=https://github.com/jadaradix/fyp.git
     REPODIR=fyp
-    BUILDNAME=build
     
     # Freshen Up
     sudo apt-get update
@@ -39,15 +38,15 @@ The easiest way to get up and running is to make an Ubuntu 14.04 droplet on Digi
     bower install --allow-root
     cd node_modules-custom/yans
     npm install
-    cd ../../
+    cd ../..
     # Built with Grunt
     grunt
     # Run server
-    cd $BUILDNAME && npm start
+    npm start
 
 Run it:
 
-    bash sh.sh
+    bash install.sh
 
 Now put the IP of your droplet into your web browser and you can see it working. Hurrah!
 
