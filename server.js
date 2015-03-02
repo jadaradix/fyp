@@ -181,12 +181,14 @@ async.waterfall([
     });
 
     server.app.get("/museum/*/", function(req, res) {
+      console.log("LOLLLLLL");
       var id = req.params[0];
       var museums = server.db("museums");
       var r = museums.find({
         id: id
       });
       var rValue = r.value();
+      console.log(rValue);
       if (!rValue || (!(("topics" in rValue)) || rValue.topics.length == 0)) {
         res.redirect(302, "/twitter/" + id);
         return;
@@ -253,7 +255,7 @@ async.waterfall([
               }
               var newData = {
                 "id": screenName,
-                "name": screenName + "'" + (!_s.endsWith(screenName.toLowerCase(), "s") ? "s" : "") + " Museum",
+                "name": data.name + "'" + (!_s.endsWith(data.name.toLowerCase(), "s") ? "s" : "") + " Museum",
                 "isSpontaneous": false,
                 "twitter": {
                   "account": {
@@ -299,7 +301,7 @@ async.waterfall([
               var tweets = _.map(data, twinglish.cleanTweet);
               //some tweets may have been removed (annulled)
               tweets = _.filter(tweets, function(tweet) {
-                return (tweet != null && tweet != undefined); //sorry
+                return (!(tweet == null || tweet == undefined)); //sorry
                });
               passedData["twitter"]["tweets"] = tweets;
               next(null, passedData);
