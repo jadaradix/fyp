@@ -170,10 +170,6 @@ async.waterfall([
         res.redirect(302, "/twitter/" + id);
         return;
       }
-      r.assign({
-        "topics": []
-      });
-      server.db.save();
       res.render(
         "process",
         { "twitter": id }
@@ -181,14 +177,12 @@ async.waterfall([
     });
 
     server.app.get("/museum/*/", function(req, res) {
-      console.log("LOLLLLLL");
       var id = req.params[0];
       var museums = server.db("museums");
       var r = museums.find({
         id: id
       });
       var rValue = r.value();
-      console.log(rValue);
       if (!rValue || (!(("topics" in rValue)) || rValue.topics.length == 0)) {
         res.redirect(302, "/twitter/" + id);
         return;
@@ -299,11 +293,42 @@ async.waterfall([
                 return;
               }
               var tweets = _.map(data, twinglish.cleanTweet);
+              // var tweets = data;
               //some tweets may have been removed (annulled)
               tweets = _.filter(tweets, function(tweet) {
                 return (!(tweet == null || tweet == undefined)); //sorry
                });
               passedData["twitter"]["tweets"] = tweets;
+
+              var tweetTexts = _.map(tweets, function(tweet) {
+                return tweet.text;
+              });
+              var textStuff = tweetTexts.join(" ");
+
+// from http://codereview.stackexchange.com/questions/63947/count-frequency-of-words-in-a-string-returning-list-of-unique-words-sorted-by-fr
+function getFrequency2(string, cutOff) {
+  var cleanString = string.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,""),
+      words = cleanString.split(' '),
+      frequencies = {},
+      word, frequency, i;
+
+  for( i=0; i<words.length; i++ ) {
+    word = words[i];
+    frequencies[word] = frequencies[word] || 0;
+    frequencies[word]++;
+  }
+  
+  words = Object.keys( frequencies );
+
+  return words.sort(function (a,b) { return frequencies[b] -frequencies[a];}).slice(0,cutOff);
+}
+
+              var stuff = getFrequency2(textStuff, 100);
+
+              var stuff2 = stuff.slice(95, 100);
+              console.log(stuff2);
+
+              passedData["topics"] = stuff2;
               next(null, passedData);
             }
           );

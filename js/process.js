@@ -28,56 +28,18 @@
 
     var drawTimeoutId;
     var stopDrawing;
-    var pollTimeout = 5000;
-    var pollTimeoutId;
-    var polledTimes = 0;
-    var polledTimesLimit = 5;
 
-    function pollCleanUp() {
-      clearInterval(pollTimeoutId);
-      clearInterval(metricSwitchId);
-    }
     function poll() {
       easyAjax("api/process/" + twitterAccountName, function(data) {
 
-        if ("error" in data) {
-          pollCleanUp();
-          window.location = "../twitter/" + twitterAccountName;
-          return;
-        }
+        setTimeout(function() {
 
-        polledTimes++;
-
-        console.log("poll %d", polledTimes);
-        if (polledTimes >= polledTimesLimit) {
-          //no topics timeout
-          stopDrawing = true;
-          $("#processing > div p span").html("> Damn.");
-          async.waterfall([
-            function(next) {
-              doScrollTo("processing-error", true, next);
-            },
-            function(next) {
-              pollCleanUp();
-              setTimeout(
-                function() {
-                  window.location = "../twitter/" + twitterAccountName;
-                },
-                3000
-              );
-            }
-          ]);
-          return;
-        }
-
-        if (data.topics.length > 0) {
           //topics
           async.waterfall([
             function(next) {
               doScrollTo("processing-ok", true, next);
             },
             function(next) {
-              pollCleanUp();
               setTimeout(
                 function() {
                   window.location = "../museum/" + twitterAccountName;
@@ -87,13 +49,14 @@
             }
           ]);
           return;
-        }
+
+        }, 10000);
 
         //data already present - we're done
         if (gData) return;
 
         gData = data;
-        metricSwitchId = setInterval(metricSwitch, 7500);
+        metricSwitchId = setInterval(metricSwitch, 4000);
         setTimeout(metricSwitch, 0);
 
         async.waterfall([
@@ -155,7 +118,6 @@
         doScrollTo("processing-data", false, next);
       },
       function(next) {
-        pollTimeoutId = setInterval(poll, pollTimeout);
         setTimeout(poll, 0);
       }
     ]);
